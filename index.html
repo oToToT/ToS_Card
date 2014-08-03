@@ -420,16 +420,15 @@ function changeSublimation (t) {
 	}
 }
 function sendToImgur () {
-	var xmlHttp = new XMLHttpRequest()
+	var xmlhttp = new XMLHttpRequest()
 	xmlhttp.onreadystatechange=function(){
 		if (xmlhttp.readyState==4 && xmlhttp.status==200){
 			console.log('cool');
 		}
 	}
 	xmlhttp.open("POST","https://api.imgur.com/3/image",true);
-	xmlhttp.setRequestHeader("Authorization","e51ef6bcc76b94e");
+	xmlhttp.setRequestHeader("Authorization","Client-ID e51ef6bcc76b94e");
 	xmlhttp.send("image="+get("output").toDataURL("image/png"));
-	xmlhttp.send();
 }
 /*$.ajax({ 
     url: 'https://api.imgur.com/3/image',

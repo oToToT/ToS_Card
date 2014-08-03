@@ -419,6 +419,29 @@ function changeSublimation (t) {
 		};
 	}
 }
+function sendToImgur () {
+	var xmlHttp = new XMLHttpRequest()
+	xmlhttp.onreadystatechange=function(){
+		if (xmlhttp.readyState==4 && xmlhttp.status==200){
+			console.log('cool');
+		}
+	}
+	xmlhttp.open("POST","https://api.imgur.com/3/image",true);
+	xmlhttp.setRequestHeader("Authorization","e51ef6bcc76b94e");
+	xmlhttp.send("image="+get("output").toDataURL("image/png"));
+	xmlhttp.send();
+}
+/*$.ajax({ 
+    url: 'https://api.imgur.com/3/image',
+    headers: {
+        'Authorization': 'Client-ID YOUR_CLIENT_ID'
+    },
+    type: 'POST',
+    data: {
+        'image': 'helloworld.jpg'
+    },
+    success: function() { console.log('cool'); }
+});*/
 function changeOpen (t) {
 	if(t.checked){
 		get("optionSublimation").innerHTML = '<img onclick="changeSublimation(this)" id="s1" height="20" width="20" style="position:relative;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s2" height="20" width="20" style="position:relative;left:7px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s3" height="20" width="20" style="position:relative;left:14px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s4" height="20" width="20" style="position:relative;left:21px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img src="h.png"/>'

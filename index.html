@@ -208,11 +208,14 @@
 			</div>
 		</div>
 	</div>
-	<button onclick='draw(false);' style="height:40px;width:455px;">預覽圖片</button>
-	<button onclick="draw(true)" style="height:40px;width:455px;">下載PNG</button>
+	<button onclick='draw("a");' style="height:40px;width:112px;">預覽圖片</button>
+	<button onclick="draw('d');" style="height:40px;width:112px;">下載PNG</button>
 	<a style="display:none;" id="a" href="" download="">aaaaaaa</a>
 	<canvas style="z-index:1;position:absolute;top:8px;left:465px;" height="682" width="455" id="output"></canvas>
 	<img style="z-index:2;position:absolute;top:8px;left:465px;" height="682" width="455" id="oup" src="n.png"/>
+	<button onclick='draw("u");' style="height:40px;width:112px;">傳至Imgur</button>
+	<button onclick='draw("s");' style="height:40px;width:112px;">分享至FB</button>
+	<a id="link" href= ></a>
 </body>
 <script>
 r1 = "./25px-Refine1.png";
@@ -267,8 +270,12 @@ function draw (d) {
 				ctx.fillText(get("cdLv").value,423,579)
 				get("oup").src = get("output").toDataURL("image/png")
 				console.log("輸出完成")
-				if(d)
+				if(d=="d")
 					downloadURL()
+				else if(d=="u")
+					sendToImgur()
+				//else if(d == "s")
+
 			}
 			if(get("sublimation").checked){
 				ctx.drawImage(get("s1"),324,470,20,20)
@@ -431,7 +438,11 @@ function sendToImgur () {
     data: {
         'image': get("output").toDataURL("image/png").replace("data:image/png;base64,","")
     },
-    success: function() { console.log('cool'); }
+    datatype: 'JSON',
+    success: function(req) {
+    	get("link").href = req.data.link
+    	get("link").innerHTML = req.data.link
+    }
 });
 }
 function changeOpen (t) {

@@ -7,6 +7,16 @@
 		alert("!!請使用電腦使用本網頁!!\n若使用其他裝置造成錯誤，概不負責\n(好啦，我之後會改好)")
 	//alert(navigator.userAgent)
 	</script>
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43236443-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
 	<style>
 
 		*{
@@ -409,6 +419,28 @@ function changeSublimation (t) {
 		};
 	}
 }
+function sendToImgur () {
+	var xmlhttp = new XMLHttpRequest()
+	xmlhttp.onreadystatechange=function(){
+		if (xmlhttp.readyState==4 && xmlhttp.status==200){
+			console.log('cool');
+		}
+	}
+	xmlhttp.open("POST","https://api.imgur.com/3/image",true);
+	xmlhttp.setRequestHeader("Authorization","Client-ID e51ef6bcc76b94e");
+	xmlhttp.send("image="+get("output").toDataURL("image/png").replace("data:image/png;base64,","")+"&type=base64");
+}
+/*$.ajax({ 
+    url: 'https://api.imgur.com/3/image',
+    headers: {
+        'Authorization': 'Client-ID YOUR_CLIENT_ID'
+    },
+    type: 'POST',
+    data: {
+        'image': 'helloworld.jpg'
+    },
+    success: function() { console.log('cool'); }
+});*/
 function changeOpen (t) {
 	if(t.checked){
 		get("optionSublimation").innerHTML = '<img onclick="changeSublimation(this)" id="s1" height="20" width="20" style="position:relative;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s2" height="20" width="20" style="position:relative;left:7px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s3" height="20" width="20" style="position:relative;left:14px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s4" height="20" width="20" style="position:relative;left:21px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img src="h.png"/>'

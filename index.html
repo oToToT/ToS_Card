@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<script>
+	if (navigator.userAgent.toLowerCase().match("mobile") != null)
+		alert("!!請使用電腦使用本網頁!!\n若使用其他裝置造成錯誤，概不負責\n(好啦，我之後會改好)")
+	//alert(navigator.userAgent)
+	</script>
+	<style>
+
+		*{
+			font-family: arial,"Times New Roman",times;
+		}
+		input{
+			background-color: transparent;
+			border: none;
+			outline: none;
+			color:white;
+		}
+		#bord{
+			position: relative;
+			background-image: url(./c.png);
+			height: 682px;
+			width: 455px;
+			background-size: 455px 682px;
+			z-index: 130;
+		}
+		#main{
+			background-image: url(./card_background.jpg);
+			width: 455px;
+			height: 682px;
+			background-size: 195% auto;
+			background-position:47% 4%;
+			background-repeat: no-repeat;
+		}
+		#name{
+			font-size: 20px;
+			font-weight: bold;
+			height: 26px;
+			width: 169px;
+			position: relative;
+			left:5%;
+		}
+		.star{
+			display: inline-block;
+			height: 18px;
+			width: 17px;
+			background-image: url(./star.png);
+			background-size: 15px 18px;
+			font-size: 12px
+		}
+		#star{
+			position: relative;
+			top: 5%;
+			left: 6%;
+			height: 26px;
+		}
+		#change{
+			display: inline;
+			position: relative;
+			left:2%;
+			top: 10px;
+			cursor:pointer;
+		}
+		#header{
+			display: inline;
+			position: absolute;
+			left:90px;
+			top: 15px;
+		}
+		#numStar{
+			position:absolute;
+			left:200px;
+			display: inline;
+			width: 40px;
+			height: 20px;
+			font-size: 20px;
+		}
+		#space{
+			background-color: transparent;
+			border: none;
+			outline: none;
+			width: 80px;
+			height: 35px;
+			color:white;
+			font-size: 32px;
+			text-align: right;
+			font-style: italic;
+			position: absolute;
+			top: 50px;
+			left: 350px;
+		}
+		#imgLabel{
+			position:relative;
+			left:23px;
+			top:12px;
+			display: block;
+			width: 409px;
+			height: 280px;
+			cursor:pointer;
+			z-index: 101;
+		}
+		#nowLv,#maxLv{
+			width: 35px;
+			height: 35px;
+			font-size: 32px;
+			text-align: right;
+			font-style: italic;
+			display:inline;
+		}
+		#health,#back,#atk{
+			text-align:right
+		}
+	</style>
+	<title>神魔卡片製造機</title>
+</head>
+<body>
+	<input accept="image/*" onchange="readFile(this)" id="file" style="display:none;" type="file"/>
+	<div id="main">
+		<img id="img" src="n.png" style="z-index:101;position:absolute;left:33px;top:80px;" height="327" width="405"/>
+		<div id="bord">
+			<span id="change" onclick="changeType()">
+				<img id="type" src="./0.png"></img>
+			</span>
+			<div id="header">
+				<input id="name" maxlength="15" type="text" placeholder="請輸入名稱"/>
+				<div id="star">
+					<span class="star"></span>
+					<input onchange="changeStar(this)" id="numStar" min="1" max="12" type="number" placeholder="星"/>
+				</div>
+			</div>
+			<input onchange="if(this.value!='') this.value = Math.round(this.value);if(isNaN(this.value)) this.value=''" maxlength="3" placeholder="空間" id="space" type="text"/>
+			<label id="imgLabel" for="file"></label>
+			<div class="level" style="position:relative;top: 10px;left:60px;">
+				<input placeholder="1" maxlength="2" type="text" id="nowLv"/>
+				<span style="font-size:15px;color:white;">/</span>
+				<input placeholder="99" style="width:16px;height: 16px;font-size: 15px;" maxlength="2" type="text" id="maxLv"/>
+			</div>
+			<div style="position:relative;left:125px;top:15px;">
+				<input maxlength="9" placeholder="0" style="font-weight:bold;font-size:19px;height:25px;width:100px;" type="text" id="health"/>
+				<input maxlength="9" placeholder="0" style="font-weight:bold;font-size:19px;position:relative;left:90px;height:25px;width:100px;" type="text" id="atk"/>
+				<br/>
+				<input maxlength="9" placeholder="0" style="position:relative;top:3px;font-weight:bold;font-size:19px;height:25px;width:100px;" type="text" id="back"/>
+				<img id="imgRace" style="position:relative;top:8px;left:10px;" height="20" width="20" src="./race_8.png" />
+				<input onchange="raceChange(this)" placeholder="種族" maxlength="10" style="text-align:right;top:2px;position:relative;left:40px;font-weight:bold;font-size:16px;height:25px;width:130px;" type="text" id="race"/>
+			</div>
+			<br/>
+			<input height="15" maxlength="23" placeholder="主動技名稱" id="actName" style="position:relative;left:90px;width:150px;font-size:15px;color:#E7E7E7;" type="text"/>
+			<div style="display:inline;position:relative;top:-3px;left:62px;">
+				<input onchange="changeOpen(this)" type="checkbox" id="sublimation"/>
+				<label style="color:white;z-index: 100;position: relative;" for="sublimation">昇華選項</label>
+			</div>
+			<div style="display:inline;position:relative;left:77px;height:23px;width:132px;" id="optionSublimation">
+				<img id="cover" style="position:relative;left:-25px;z-index: 10;" height="23" width="132" src="./b.png"/>
+			</div>
+			<textarea style="background-color: transparent;
+			font-size:13px;
+			position:relative;
+			top:5px;
+			left:30px;
+			border: none;
+			outline: none;
+			resize : none;
+			overflow-y : auto;
+			overflow:hidden;
+			height:50px; 
+			width:390px;
+			color:#E7E7E7;" id="actBody" onchange="this.value = addN(this.value)" maxlength="165" placeholder="主動技內容"></textarea>
+			<div id="leaderSkill" style="position:relative;top:13px;">
+				<input height="15" maxlength="23" placeholder="隊長技名稱" id="leaName" style="position:relative;left:90px;width:180px;font-size:15px;color:#E7E7E7;" type="text"/>
+				<div style="display:inline;position:relative;top:-3px;left:100px;"></div>
+				<div style="display:inline;position:relative;left:160px;top:3px;">
+					<input type="number" maxlength="2" placeholder="1" onchange="if(this.value>99)this.value=99;if(this.value<0)this.value=0;if(this.value!='') this.value = Math.round(this.value);if(isNaN(this.value)) this.value=''" id="cd" style="width: 30px;
+ 						position: relative;
+ 						top: -6px;" max="99" min="0">
+					<input type="text" placeholder="1" maxlength="2" id="cdLv" style="width: 30px;
+ 						position: relative;
+ 						top: -6px;
+ 						left: 25px;">
+				</div>
+				<textarea style="background-color: transparent;
+				font-size:13px;
+				position:relative;
+				top:8px;
+				left:30px;
+				border: none;
+				outline: none;
+				color:white;
+				resize : none;
+				overflow-y : auto;
+				overflow:hidden;
+				height:50px; 
+				width:390px;
+				color:#E7E7E7;" id="leaBody" onchange="this.value = addN(this.value)" maxlength="165" placeholder="隊長技內容"></textarea>
+			</div>
+		</div>
+	</div>
+	<button onclick='draw(false);' style="height:40px;width:455px;">預覽圖片</button>
+	<button onclick="draw(true)" style="height:40px;width:455px;">下載PNG</button>
+	<a style="display:none;" id="a" href="" download="">aaaaaaa</a>
+	<canvas style="z-index:1;position:absolute;top:8px;left:465px;" height="682" width="455" id="output"></canvas>
+	<img style="z-index:2;position:absolute;top:8px;left:465px;" height="682" width="455" id="oup" src="n.png"/>
+</body>
+<script>
+r1 = "./25px-Refine1.png";
+r2 = "./25px-Refine2.png";
+r3 = "./25px-Refine3.png";
+r4 = "./25px-Refine4.png";
+sublimate = {
+	"s1": false,
+	"s2": false,
+	"s3": false,
+	"s4": false
+};
+nowType = 0;
+nowRace = 8;
+function get(s){
+	return document.getElementById(s)
+}
+function now(){
+	var ctx = get("output");
+	get("oup").src = ctx.toDataURL("image/png")
+}
+function draw (d) {
+	console.log("輸出中")
+	var ctx = get("output").getContext('2d');
+	ctx.textAlign = "left"
+	ctx.fillStyle = "black"
+	ctx.font = ""
+	var bg = new Image();
+	bg.onload = function() {
+	    ctx.drawImage(bg,-201,-1,887,499);
+		ctx.drawImage(get("img"),28,70,get("img").width,get("img").height);
+		var bd = new Image()
+		bd.onload = function () {
+			ctx.drawImage(bd,0,0,455,682)
+			ctx.drawImage(get("type"),10,8,73,73)
+			ctx.font = "bold 20px Arial";
+			ctx.fillStyle = "white"
+			ctx.fillText(get("name").value,100,37)
+			var s = new Image();
+			s.onload = function (){
+				for (var i = 0; i < get("numStar").value; i++) {
+					ctx.drawImage(s,100+(i*17),46,15,18)
+				};
+				ctx.font = "italic 32px Arial";
+				ctx.textAlign="right"
+				ctx.fillStyle = "white"
+				ctx.fillText(get("space").value,430,80)
+				ctx.font = "13px Arial"
+				ctx.fillText(get("cd").value,355,580)
+				if(get("cdLv").value == "最大")
+					ctx.fillStyle = "#08D7CE"
+				ctx.fillText(get("cdLv").value,423,579)
+				get("oup").src = get("output").toDataURL("image/png")
+				console.log("輸出完成")
+				if(d)
+					downloadURL()
+			}
+			if(get("sublimation").checked){
+				ctx.drawImage(get("s1"),324,470,20,20)
+				ctx.drawImage(get("s2"),351,470,20,20)
+				ctx.drawImage(get("s3"),378,470,20,20)
+				ctx.drawImage(get("s4"),405,470,20,20)
+			}else{
+				ctx.drawImage(get("cover"),300,470,132,23)
+			}
+			ctx.font = "15px Arial";
+			ctx.textAlign="left"
+			ctx.fillStyle = "#E7E7E7"
+			ctx.fillText(get("actName").value,90,493)
+			ctx.fillText(get("leaName").value,90,585)
+			ctx.font = "13px Arial";
+			for (var i = 0; i < m(get("actBody").value.toString().split("\n").length,3); i++) {
+				ctx.fillText(get("actBody").value.toString().split("\n")[i],33,519+(i*16))
+			};
+			for (var i = 0; i < m(get("leaBody").value.toString().split("\n").length,3); i++) {
+				ctx.fillText(get("leaBody").value.toString().split("\n")[i],33,611+(i*16))
+			};
+			ctx.drawImage(get("imgRace"),240,444,20,20)
+			ctx.font = "bold 19px Arial";
+			ctx.textAlign="right"
+			ctx.fillStyle = "white"
+			ctx.fillText(get("race").value,426,461)
+			ctx.font = "21px"
+			ctx.fillText(get("atk").value,426,429)
+			ctx.fillText(get("health").value,223,429)
+			ctx.fillText(get("back").value,223,461)
+			ctx.font = "italic 32px arial"
+			ctx.fillText(get("nowLv").value,97,397)
+			if(get("nowLv").value == get("maxLv").value){
+				ctx.fillStyle = "#08D7CE"
+				ctx.font = "bold italic 15px arial"
+				ctx.fillText("最大",128,397)
+			}else{
+				ctx.font = "italic 15px arial"
+				ctx.fillText("/",103,397)
+				ctx.font = "bold italic 15px arial"
+				ctx.fillText(get("maxLv").value,123,397)
+			}
+			get("oup").src = get("output").toDataURL("image/png")
+			s.src = "star.png"
+		}
+		bd.src = "c.png"
+	};
+	bg.src = "card_background.jpg";
+}
+function m(a,b){
+	if(a>b)
+		return b;
+	else 
+		return a
+}
+function mt (a) {
+	return get("output").getContext("2d").measureText(a)
+}
+function addN (s) {
+	if(mt(s).width<385)
+		return s
+	var temp = ""
+	var a = ""
+	for (var i = 0; i < s.length; i++) {
+		temp += s[i];
+		if(mt(temp).width > 384){
+			if(s[i+1]!="\n")
+				temp+="\n"
+			a += temp
+			temp = "" 
+		}
+	};
+	a+=temp
+	return a
+}
+function times(s,n){
+	a = ""
+	for(var i = 0;i<n;i++){
+		a+=s
+	}
+	return a
+}
+function changeType(){
+	nowType = (nowType+1)%5
+	get("type").src = "./"+nowType.toString()+".png"
+}
+function changeStar (t) {
+	if(t.value<1){
+		t.value = 1
+	}else if(t.value > 12 ){
+		t.value = 12
+	}else if(isNaN(t.value)){
+		t.value = 1
+	}
+	get("star").innerHTML = times('<span class="star"></span>',t.value)+'<input onchange="changeStar(this)" id="numStar" min="1" max="12" type="number" value="'+t.value+'"/>'
+}
+function readFile(t) {
+    var fr = new FileReader;
+    fr.onload = function() {
+    	get("img").src = fr.result;
+    }
+    fr.readAsDataURL(t.files[0]);
+}
+function raceChange (t) {
+	switch(t.value){
+		case "神族":
+			nowRace = 0;
+			break;
+		case "魔族":
+			nowRace = 1;
+			break;
+		case "人類":
+			nowRace = 2;
+			break;
+		case "龍類":
+			nowRace = 3;
+			break;
+		case "獸類":
+			nowRace = 4;
+			break;
+		case "進化素材":
+			nowRace = 5;
+			break;
+		case "強化素材":
+			nowRace = 6;
+			break;
+		case "妖精類":
+			nowRace = 7;
+			break;
+		default:
+			nowRace = 8;
+			break;
+	}
+get("imgRace").src = "./race_" + nowRace.toString() + ".png"
+}
+function changeSublimation (t) {
+	if(!sublimate[t.id]){
+		for (var a = 1; a <= eval(t.id.slice(1,2)); a++ ){
+			get("s"+a.toString()).src = eval("r"+a.toString());
+			if(!sublimate["s"+a.toString()])
+				sublimate["s"+a.toString()] = !sublimate["s"+a.toString()]
+		};
+		
+	}
+	else{
+		for (var i = eval(t.id.slice(1,2)); i <= 4 ; i++) {
+			get("s"+i.toString()).src = "./n.png";
+			if(sublimate["s"+i.toString()])
+				sublimate["s"+i.toString()] = !sublimate["s"+i.toString()]
+		};
+	}
+}
+function changeOpen (t) {
+	if(t.checked){
+		get("optionSublimation").innerHTML = '<img onclick="changeSublimation(this)" id="s1" height="20" width="20" style="position:relative;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s2" height="20" width="20" style="position:relative;left:7px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s3" height="20" width="20" style="position:relative;left:14px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s4" height="20" width="20" style="position:relative;left:21px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img src="h.png"/>'
+	}else{
+		for(var i = 1;i<=4;i++)
+			sublimate["s"+i.toString()] = false
+		get("optionSublimation").innerHTML = '<img style="position:relative;left:-25px;z-index: 10;" id="cover" height="23" width="132" src="./b.png"/>'
+	}
+}
+var downloadURL = function downloadURL() {
+	console.log("下載中")
+	var url = get("output").toDataURL("image/png")
+	var last = "data:application/force-download;" + url.toString().slice(15,url.toString().length)
+	get("a").href = last
+	get("a").download = get("name").value+".png"
+	try{
+		get("a").click()
+	}catch(e){
+		alert("此流覽器需要自行按右鍵下載")
+	}
+}
+</script>
+</html>

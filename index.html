@@ -381,23 +381,23 @@ window.fbAsyncInit = function() {
     	version: 'v1.0'
     	}
 	);
+	FB.getLoginStatus(function(response) {
+	    if (response.status === 'connected') {
+	        //已登入且和app連結
+	        var uid = response.authResponse.accessToken;
+	        var accessToken = response.authResponse.accessToken;
+	        console.log(uid)
+	        console.log(accessToken)
+	        init();
+	    } else if (response.status === 'not_authorized') {
+	        //已登入但未與app連結
+	        login();
+	    } else {
+	        //未登入
+	        login()
+	    }
+	});
 }
-FB.getLoginStatus(function(response) {
-    if (response.status === 'connected') {
-        //已登入且和app連結
-        var uid = response.authResponse.accessToken;
-        var accessToken = response.authResponse.accessToken;
-        console.log(uid)
-        console.log(accessToken)
-        init();
-    } else if (response.status === 'not_authorized') {
-        //已登入但未與app連結
-        login();
-    } else {
-        //未登入
-        login()
-    }
-});
 function login() {
     FB.login(function(response) {
         if (response.authResponse) {

@@ -381,6 +381,8 @@ window.fbAsyncInit = function() {
     	version: 'v1.0'
     	}
 	);
+}
+function shareToFB () {
 	FB.getLoginStatus(function(response) {
 	    if (response.status === 'connected') {
 	        //已登入且和app連結

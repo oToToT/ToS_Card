@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<script>
 	if (navigator.userAgent.toLowerCase().match("mobile") != null)
 		alert("!!請使用電腦使用本網頁!!\n若使用其他裝置造成錯誤，概不負責\n(好啦，我之後會改好)")
@@ -17,8 +18,8 @@
 	  ga('send', 'pageview');
 
 	</script>
-	<script src="http://code.jquery.com/jquery.min.js">
-	</script>
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
       window.fbAsyncInit = function() {
         FB.init({
@@ -225,15 +226,38 @@
 			</div>
 		</div>
 	</div>
-	<button onclick='draw("a");' style="height:40px;width:111px;">預覽圖片</button>
-	<button onclick="draw('d');" style="height:40px;width:111px;">下載PNG</button>
+	<button onclick='draw("a");' style="height:40px;width:111px;cursor:default;">預覽圖片</button>
+	<button onclick="draw('d');" style="height:40px;width:111px;cursor:default;">下載PNG</button>
 	<a style="display:none;" id="a" href="" download="">aaaaaaa</a>
 	<canvas style="z-index:1;position:absolute;top:8px;left:465px;" height="682" width="455" id="output"></canvas>
 	<img style="z-index:2;position:absolute;top:8px;left:465px;" height="682" width="455" id="oup" src="n.png"/>
-	<button onclick='draw("u");' style="height:40px;width:111px;">傳至Imgur</button>
-	<button onclick='draw("s");' style="height:40px;width:111px;">分享至FB</button>
+	<button onclick='draw("u");' style="height:40px;width:111px;cursor:default;">傳至Imgur</button>
+	<button data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor:default;height:40px;width:111px;">分享至FB</button>
 	<span id="lll">輸出連結：</span><a id="link" href></a>
 	<div id="fb-root"></div>
+	<!--<button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>-->
+
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div class="modal-header">
+      				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      				<div class="modal-title">請輸入卡片說明</div>
+      			</div>
+      			<div class="modal-body">
+      				<textarea style="margin: 0px;
+						height: 78px;
+						width: 863px;
+						resize : none;" 
+					id="pd" placeholder="請輸入卡片說明"></textarea>
+      			</div>
+      			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+			        <button onclick="draw('s')" type="button" class="btn btn-primary">分享</button>
+			    </div>
+    		</div>
+  		</div>
+	</div>
 </body>
 <script>
 var accessToken;
@@ -258,7 +282,7 @@ function now(){
 }
 function draw (d) {
 	if(d=="u")
-		get("lll").innerHTML = "輸出連結：輸出中"
+		get("lll").innerHTML = "輸出連結：輸出中..."
 	console.log("輸出中")
 	var ctx = get("output").getContext('2d');
 	ctx.textAlign = "left"
@@ -425,7 +449,7 @@ function init () {
     	link = req.data.deletehash
     	FB.api('/me/photos', 'post', {
     		access_token: accessToken,
-	    	message:'photo description',
+	    	message: get("pd").value,
 	   		url:imgURL        
 			}, function(response){
 			    if (!response || response.error) {
@@ -542,7 +566,7 @@ function sendToImgur () {
     },
     datatype: 'JSON',
     success: function(req) {
-    	get("lll").innerHTML = "輸出連結"
+    	get("lll").innerHTML = "輸出連結："
     	get("link").href = req.data.link
     	get("link").innerHTML = req.data.link
     }

@@ -19,6 +19,23 @@
 	</script>
 	<script src="http://code.jquery.com/jquery.min.js">
 	</script>
+	<script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '791606320879048',
+          xfbml      : true,
+          version    : 'v2.0'
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
 	<style>
 
 		*{
@@ -208,14 +225,14 @@
 			</div>
 		</div>
 	</div>
-	<button onclick='draw("a");' style="height:40px;width:112px;">預覽圖片</button>
-	<button onclick="draw('d');" style="height:40px;width:112px;">下載PNG</button>
+	<button onclick='draw("a");' style="height:40px;width:111px;">預覽圖片</button>
+	<button onclick="draw('d');" style="height:40px;width:111px;">下載PNG</button>
 	<a style="display:none;" id="a" href="" download="">aaaaaaa</a>
 	<canvas style="z-index:1;position:absolute;top:8px;left:465px;" height="682" width="455" id="output"></canvas>
 	<img style="z-index:2;position:absolute;top:8px;left:465px;" height="682" width="455" id="oup" src="n.png"/>
-	<button onclick='draw("u");' style="height:40px;width:112px;">傳至Imgur</button>
-	<button onclick='draw("s");' style="height:40px;width:112px;">分享至FB</button>
-	<a id="link" href= ></a>
+	<button onclick='draw("u");' style="height:40px;width:111px;">傳至Imgur</button>
+	<button onclick='draw("s");' style="height:40px;width:111px;">分享至FB</button>
+	<a id="link" href>輸出連結：</a>
 </body>
 <script>
 r1 = "./25px-Refine1.png";
@@ -238,6 +255,8 @@ function now(){
 	get("oup").src = ctx.toDataURL("image/png")
 }
 function draw (d) {
+	if(d=="u")
+		get("link").innerHTML = "輸出連結：輸出中"
 	console.log("輸出中")
 	var ctx = get("output").getContext('2d');
 	ctx.textAlign = "left"
@@ -351,6 +370,42 @@ function addN (s) {
 	a+=temp
 	return a
 }
+function shareToFB(){
+	window.fbAsyncInit = function() {
+    FB.init({ appId: 791606320879048, status: true, cookie: true, xfbml: true, oauth: true });
+
+    //檢查登入狀態
+    FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+            //已登入且和app連結
+            var uid = response.authResponse.accessToken;
+            var accessToken = response.authResponse.accessToken;
+
+            init();
+        } else if (response.status === 'not_authorized') {
+            //已登入但未與app連結
+
+            login();
+        } else {
+            //未登入
+            login()
+        }
+    });
+	};
+	
+}
+function login () {
+	function login() {
+    FB.login(function(response) {
+        if (response.authResponse) {
+            init();
+        }
+    }, { scope: 'public_profile' });
+}
+}
+function init () {
+	console.log("test")
+}
 function times(s,n){
 	a = ""
 	for(var i = 0;i<n;i++){
@@ -441,9 +496,35 @@ function sendToImgur () {
     datatype: 'JSON',
     success: function(req) {
     	get("link").href = req.data.link
-    	get("link").innerHTML = req.data.link
+    	get("link").innerHTML = "輸出連結："+req.data.link
     }
-});
+	});
+}
+function sendToImgur () {
+	var link = ""
+	$.ajax({ 
+    url: 'https://api.imgur.com/3/image',
+    headers: {
+        'Authorization': 'Client-ID e51ef6bcc76b94e'
+    },
+    type: 'POST',
+    data: {
+        'image': get("output").toDataURL("image/png").replace("data:image/png;base64,","")
+    },
+    datatype: 'JSON',
+    success: function(req) {
+    	get("link").href = req.data.link
+    	get("link").innerHTML = "輸出連結："+req.data.link
+    	link = req.data.deletehash
+    }
+	});
+	$.ajax({ 
+    url: 'https://api.imgur.com/3/image'+link,
+    headers: {
+        'Authorization': 'Client-ID e51ef6bcc76b94e'
+    },
+    type: 'DELETE',
+	});
 }
 function changeOpen (t) {
 	if(t.checked){

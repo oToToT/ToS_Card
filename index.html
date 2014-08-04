@@ -542,8 +542,9 @@ function sendToImgur () {
     },
     datatype: 'JSON',
     success: function(req) {
+    	get("lll").innerHTML = "輸出連結"
     	get("link").href = req.data.link
-    	get("link").innerHTML = +req.data.link
+    	get("link").innerHTML = req.data.link
     }
 	});
 }	

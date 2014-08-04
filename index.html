@@ -233,6 +233,7 @@
 	<button onclick='draw("u");' style="height:40px;width:111px;">傳至Imgur</button>
 	<button onclick='draw("s");' style="height:40px;width:111px;">分享至FB</button>
 	<a id="link" href>輸出連結：</a>
+	<div id="fb-root"></div>
 </body>
 <script>
 r1 = "./25px-Refine1.png";
@@ -370,17 +371,24 @@ function addN (s) {
 	a+=temp
 	return a
 }
-function shareToFB(){
-	window.fbAsyncInit = function() {
-    FB.init({ appId: 791606320879048, status: true, cookie: true, xfbml: true, oauth: true });
+window.fbAsyncInit = function() {
+    FB.init({
+    	appId: "791606320879048",
+    	status: true, 
+    	cookie: true, 
+    	xfbml: true, 
+    	oauth: true 
+    	}
+);
 
-    //檢查登入狀態
+function shareToFB(){
     FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
             //已登入且和app連結
             var uid = response.authResponse.accessToken;
             var accessToken = response.authResponse.accessToken;
-
+            console.log(uid)
+            console.log(accessToken)
             init();
         } else if (response.status === 'not_authorized') {
             //已登入但未與app連結

@@ -232,7 +232,7 @@
 	<img style="z-index:2;position:absolute;top:8px;left:465px;" height="682" width="455" id="oup" src="n.png"/>
 	<button onclick='draw("u");' style="height:40px;width:111px;">傳至Imgur</button>
 	<button onclick='draw("s");' style="height:40px;width:111px;">分享至FB</button>
-	<a id="link" href>輸出連結：</a>
+	<span id="lll">輸出連結：</span><a id="link" href></a>
 	<div id="fb-root"></div>
 </body>
 <script>
@@ -258,7 +258,7 @@ function now(){
 }
 function draw (d) {
 	if(d=="u")
-		get("link").innerHTML = "輸出連結：輸出中"
+		get("lll").innerHTML = "輸出連結：輸出中"
 	console.log("輸出中")
 	var ctx = get("output").getContext('2d');
 	ctx.textAlign = "left"
@@ -295,8 +295,9 @@ function draw (d) {
 					downloadURL()
 				else if(d=="u")
 					sendToImgur()
-				//else if(d == "s")
+				else if(d == "s")
 
+					shareToFB()
 			}
 			if(get("sublimation").checked){
 				ctx.drawImage(get("s1"),324,470,20,20)
@@ -436,7 +437,7 @@ function init () {
 		        			'Authorization': 'Client-ID e51ef6bcc76b94e'
 		    			},	
 		    			type: 'DELETE',
-						});
+					});
 			    } else {
 			        alert('Post ID: ' + response.id);
 			        $.ajax({ 
@@ -542,7 +543,7 @@ function sendToImgur () {
     datatype: 'JSON',
     success: function(req) {
     	get("link").href = req.data.link
-    	get("link").innerHTML = "輸出連結："+req.data.link
+    	get("link").innerHTML = +req.data.link
     }
 	});
 }	

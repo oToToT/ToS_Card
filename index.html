@@ -378,7 +378,7 @@ window.fbAsyncInit = function() {
     	cookie: true, 
     	xfbml: true, 
     	oauth: true, 
-    	version: 'v1.0'
+    	version: 'v2.0'
     	}
 	);
 }
@@ -388,8 +388,6 @@ function shareToFB () {
 	        //已登入且和app連結
 	        var uid = response.authResponse.accessToken;
 	        var accessToken = response.authResponse.accessToken;
-	        console.log(uid)
-	        console.log(accessToken)
 	        init();
 	    } else if (response.status === 'not_authorized') {
 	        //已登入但未與app連結
@@ -403,12 +401,12 @@ function shareToFB () {
 function login() {
     FB.login(function(response) {
         if (response.authResponse) {
-            init();
+            shareToFB()
         }
     }, { scope: 'public_profile' });
 }
 function init () {
-	console.log("test")
+	//FB.ui()
 }
 function times(s,n){
 	a = ""

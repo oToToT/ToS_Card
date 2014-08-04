@@ -247,7 +247,7 @@
       			<div class="modal-body">
       				<textarea style="margin: 0px;
 						height: 78px;
-						width: 863px;
+						width: 100%;
 						resize : none;" 
 					id="pd" placeholder="請輸入卡片說明"></textarea>
       			</div>
@@ -480,6 +480,10 @@ function login() {
     FB.login(function(response) {
         if (response.authResponse) {
             init()
+        }else{
+        	$("#load").modal("hide")
+			get("url").innerHTML = "登入失敗"
+			$("#sdone").modal("show")
         }
     }, { scope: 'public_profile,publish_actions' });
 }

@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<script>
 	if (navigator.userAgent.toLowerCase().match("mobile") != null)
 		alert("!!請使用電腦使用本網頁!!\n若使用其他裝置造成錯誤，概不負責\n(好啦，我之後會改好)")
@@ -17,8 +18,25 @@
 	  ga('send', 'pageview');
 
 	</script>
-	<script src="http://code.jquery.com/jquery.min.js">
-	</script>
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '791606320879048',
+          xfbml      : true,
+          version    : 'v2.0'
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
 	<style>
 
 		*{
@@ -154,7 +172,7 @@
 				<input maxlength="9" placeholder="0" style="font-weight:bold;font-size:19px;position:relative;left:90px;height:25px;width:100px;" type="text" id="atk"/>
 				<br/>
 				<input maxlength="9" placeholder="0" style="position:relative;top:3px;font-weight:bold;font-size:19px;height:25px;width:100px;" type="text" id="back"/>
-				<img id="imgRace" style="position:relative;top:8px;left:10px;" height="20" width="20" src="./race_8.png" />
+				<img id="imgRace" style="position:relative;left:10px;" height="20" width="20" src="./race_8.png" />
 				<input onchange="raceChange(this)" placeholder="種族" maxlength="10" style="text-align:right;top:2px;position:relative;left:40px;font-weight:bold;font-size:16px;height:25px;width:130px;" type="text" id="race"/>
 			</div>
 			<br/>
@@ -163,7 +181,7 @@
 				<input onchange="changeOpen(this)" type="checkbox" id="sublimation"/>
 				<label style="color:white;z-index: 100;position: relative;" for="sublimation">昇華選項</label>
 			</div>
-			<div style="display:inline;position:relative;left:77px;height:23px;width:132px;" id="optionSublimation">
+			<div style="top:-4px;display:inline;position:relative;left:89px;height:23px;width:132px;" id="optionSublimation">
 				<img id="cover" style="position:relative;left:-25px;z-index: 10;" height="23" width="132" src="./b.png"/>
 			</div>
 			<textarea style="background-color: transparent;
@@ -208,13 +226,88 @@
 			</div>
 		</div>
 	</div>
-	<button onclick='draw(false);' style="height:40px;width:455px;">預覽圖片</button>
-	<button onclick="draw(true)" style="height:40px;width:455px;">下載PNG</button>
+	<button onclick='draw("a");' style="height:40px;width:111px;cursor:default;">預覽圖片</button>
+	<button onclick="draw('d');" style="height:40px;width:111px;cursor:default;">下載PNG</button>
 	<a style="display:none;" id="a" href="" download="">aaaaaaa</a>
 	<canvas style="z-index:1;position:absolute;top:8px;left:465px;" height="682" width="455" id="output"></canvas>
 	<img style="z-index:2;position:absolute;top:8px;left:465px;" height="682" width="455" id="oup" src="n.png"/>
+	<button onclick='draw("u");' style="height:40px;width:111px;cursor:default;">傳至Imgur</button>
+	<button data-toggle="modal" data-target="#sha" style="cursor:default;height:40px;width:111px;">分享至FB</button>
+	<div id="fb-root"></div>
+	<!--<button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>-->
+
+	<div class="modal fade bs-example-modal-lg" id="sha" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div style="background-color:black;color:white;" class="modal-header">
+      				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      				<div class="modal-title">請輸入卡片說明</div>
+      			</div>
+      			<div class="modal-body">
+      				<textarea style="margin: 0px;
+						height: 78px;
+						width: 863px;
+						resize : none;" 
+					id="pd" placeholder="請輸入卡片說明"></textarea>
+      			</div>
+      			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+			        <button onclick="draw('s')" type="button" class="btn btn-primary">分享</button>
+			    </div>
+    		</div>
+  		</div>
+	</div>
+	<div class="modal fade bs-example-modal-lg" id="load" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div style="background-color:black;color:white;" class="modal-header">
+      				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      				<div class="modal-title">上傳中</div>
+      			</div>
+      			<div class="modal-body">
+      				上傳中........
+      			</div>
+      			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+			    </div>
+    		</div>
+  		</div>
+	</div>
+	<div class="modal fade bs-example-modal-lg" id="sdone" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div style="background-color:black;color:white;" class="modal-header">
+      				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      				<div class="modal-title">分享完成</div>
+      			</div>
+      			<div class="modal-body">
+      				您的貼文網址:<a id="url" href></a>
+      			</div>
+      			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+			    </div>
+    		</div>
+  		</div>
+	</div>
+	<div class="modal fade bs-example-modal-lg" id="udone" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div style="background-color:black;color:white;" class="modal-header">
+      				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      				<div class="modal-title">上傳完成</div>
+      			</div>
+      			<div class="modal-body">
+      				您的圖片網址:<a id="link" href></a>
+      			</div>
+      			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+			    </div>
+    		</div>
+  		</div>
+	</div>
 </body>
 <script>
+var accessToken;
 r1 = "./25px-Refine1.png";
 r2 = "./25px-Refine2.png";
 r3 = "./25px-Refine3.png";
@@ -235,6 +328,12 @@ function now(){
 	get("oup").src = ctx.toDataURL("image/png")
 }
 function draw (d) {
+	if(d=="u"){
+		$("#load").modal("show")
+	}else if(d=='s'){
+		$("#sha").modal("hide")
+		$("#load").modal("show")
+	}
 	console.log("輸出中")
 	var ctx = get("output").getContext('2d');
 	ctx.textAlign = "left"
@@ -267,8 +366,13 @@ function draw (d) {
 				ctx.fillText(get("cdLv").value,423,579)
 				get("oup").src = get("output").toDataURL("image/png")
 				console.log("輸出完成")
-				if(d)
+				if(d=="d")
 					downloadURL()
+				else if(d=="u")
+					sendToImgur()
+				else if(d == "s")
+
+					shareToFB()
 			}
 			if(get("sublimation").checked){
 				ctx.drawImage(get("s1"),324,470,20,20)
@@ -343,6 +447,90 @@ function addN (s) {
 	};
 	a+=temp
 	return a
+}
+window.fbAsyncInit = function() {
+    FB.init({
+    	appId: "791606320879048",
+    	status: true, 
+    	cookie: true, 
+    	xfbml: true, 
+    	oauth: true, 
+    	version: 'v2.0'
+    	}
+	);
+}
+function shareToFB () {
+	FB.getLoginStatus(function(response) {
+	    if (response.status === 'connected') {
+	        //已登入且和app連結
+	        var uid = response.authResponse.accessToken;
+	        accessToken = response.authResponse.accessToken;
+	        init();
+	    } else if (response.status === 'not_authorized') {
+	        //已登入但未與app連結
+	        login();
+	    } else {
+	        //未登入
+	        login()
+	    }
+	});
+}
+function login() {
+    FB.login(function(response) {
+        if (response.authResponse) {
+            init()
+        }
+    }, { scope: 'public_profile,publish_actions' });
+}
+function init () {
+	var link = ""
+	var imgURL = ""
+	$.ajax({ 
+    url: 'https://api.imgur.com/3/image',
+    headers: {
+        'Authorization': 'Client-ID e51ef6bcc76b94e'
+    },
+    type: 'POST',
+    data: {
+        'image': get("output").toDataURL("image/png").replace("data:image/png;base64,","")
+    },
+    datatype: 'JSON',
+    success: function(req) {
+    	imgURL = req.data.link
+    	link = req.data.deletehash
+    	FB.api('/me/photos', 'post', {
+    		access_token: accessToken,
+	    	message: get("pd").value,
+	   		url:imgURL        
+			}, function(response){
+			    if (!response || response.error) {
+			    	$("#load").modal("hide")
+			        get("url").innerHTML = "分享錯誤"
+			        $("#sdone").modal("show")
+			        $.ajax({ 
+		    			url: 'https://api.imgur.com/3/image/'+link,
+		    			headers: {
+		        			'Authorization': 'Client-ID e51ef6bcc76b94e'
+		    			},	
+		    			type: 'DELETE',
+					});
+			    } else {
+			    	$("#load").modal("hide")
+			        get("url").innerHTML = "https://www.facebook.com/photo.php?fbid="+response.id.toString()
+			        get("url").href = get("url").innerHTML
+			        $("#sdone").modal("show")
+			        $.ajax({ 
+		    			url: 'https://api.imgur.com/3/image/'+link,
+		    			headers: {
+		        			'Authorization': 'Client-ID e51ef6bcc76b94e'
+		    			},	
+		    			type: 'DELETE',
+						});
+			    }
+
+			});
+		}
+	});
 }
 function times(s,n){
 	a = ""
@@ -431,9 +619,15 @@ function sendToImgur () {
     data: {
         'image': get("output").toDataURL("image/png").replace("data:image/png;base64,","")
     },
-    success: function() { console.log('cool'); }
-});
-}
+    datatype: 'JSON',
+    success: function(req) {
+    	$("#load").modal("hide")
+    	get("link").href = req.data.link
+    	get("link").innerHTML = req.data.link
+    	$("#udone").modal("show")
+    }
+	});
+}	
 function changeOpen (t) {
 	if(t.checked){
 		get("optionSublimation").innerHTML = '<img onclick="changeSublimation(this)" id="s1" height="20" width="20" style="position:relative;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s2" height="20" width="20" style="position:relative;left:7px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s3" height="20" width="20" style="position:relative;left:14px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s4" height="20" width="20" style="position:relative;left:21px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img src="h.png"/>'

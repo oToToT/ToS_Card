@@ -232,12 +232,11 @@
 	<canvas style="z-index:1;position:absolute;top:8px;left:465px;" height="682" width="455" id="output"></canvas>
 	<img style="z-index:2;position:absolute;top:8px;left:465px;" height="682" width="455" id="oup" src="n.png"/>
 	<button onclick='draw("u");' style="height:40px;width:111px;cursor:default;">傳至Imgur</button>
-	<button data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor:default;height:40px;width:111px;">分享至FB</button>
-	<span id="lll">輸出連結：</span><a id="link" href></a>
+	<button data-toggle="modal" data-target="#sha" style="cursor:default;height:40px;width:111px;">分享至FB</button>
 	<div id="fb-root"></div>
 	<!--<button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>-->
 
-	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal fade bs-example-modal-lg" id="sha" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   		<div class="modal-dialog modal-lg">
     		<div class="modal-content">
       			<div class="modal-header">
@@ -254,6 +253,54 @@
       			<div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
 			        <button onclick="draw('s')" type="button" class="btn btn-primary">分享</button>
+			    </div>
+    		</div>
+  		</div>
+	</div>
+	<div class="modal fade bs-example-modal-lg" id="load" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div class="modal-header">
+      				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      				<div class="modal-title">上傳中</div>
+      			</div>
+      			<div class="modal-body">
+      				上傳中........
+      			</div>
+      			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+			    </div>
+    		</div>
+  		</div>
+	</div>
+	<div class="modal fade bs-example-modal-lg" id="sdone" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div class="modal-header">
+      				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      				<div class="modal-title">分享完成</div>
+      			</div>
+      			<div class="modal-body">
+      				您的貼文網址:<a id="url" href></a>
+      			</div>
+      			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+			    </div>
+    		</div>
+  		</div>
+	</div>
+	<div class="modal fade bs-example-modal-lg" id="udone" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div class="modal-header">
+      				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      				<div class="modal-title">上傳完成</div>
+      			</div>
+      			<div class="modal-body">
+      				您的圖片網址:<a id="link" href></a>
+      			</div>
+      			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
 			    </div>
     		</div>
   		</div>
@@ -281,8 +328,12 @@ function now(){
 	get("oup").src = ctx.toDataURL("image/png")
 }
 function draw (d) {
-	if(d=="u")
-		get("lll").innerHTML = "輸出連結：輸出中..."
+	if(d=="u"){
+		$("#load").modal("show")
+	}else if(d=='s'){
+		$("#sha").modal("hide")
+		$("#load").modal("show")
+	}
 	console.log("輸出中")
 	var ctx = get("output").getContext('2d');
 	ctx.textAlign = "left"
@@ -453,8 +504,9 @@ function init () {
 	   		url:imgURL        
 			}, function(response){
 			    if (!response || response.error) {
-			        alert('Error occured');
-			        console.log(response)
+			    	$("#load").modal("hide")
+			        get("url").innerHTML = "分享錯誤"
+			        $("#sdone").modal("show")
 			        $.ajax({ 
 		    			url: 'https://api.imgur.com/3/image/'+link,
 		    			headers: {
@@ -463,7 +515,10 @@ function init () {
 		    			type: 'DELETE',
 					});
 			    } else {
-			        alert('Post ID: ' + response.id);
+			    	$("#load").modal("hide")
+			        get("url").innerHTML = "https://www.facebook.com/photo.php?fbid="+response.id.toString()
+			        get("url").href = get("url").innerHTML
+			        $("#sdone").modal("show")
 			        $.ajax({ 
 		    			url: 'https://api.imgur.com/3/image/'+link,
 		    			headers: {
@@ -566,9 +621,10 @@ function sendToImgur () {
     },
     datatype: 'JSON',
     success: function(req) {
-    	get("lll").innerHTML = "輸出連結："
+    	$("#load").modal("hide")
     	get("link").href = req.data.link
     	get("link").innerHTML = req.data.link
+    	$("udone").modal("show")
     }
 	});
 }	

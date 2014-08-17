@@ -2,43 +2,401 @@
 <html>
 <head>
 	<meta charset="UTF-8" />
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<script>
-	if (navigator.userAgent.toLowerCase().match("mobile") != null)
-		alert("!!請使用電腦使用本網頁!!\n若使用其他裝置造成錯誤，概不負責\n(好啦，我之後會改好)")
-	//alert(navigator.userAgent)
-	</script>
-	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	  ga('create', 'UA-43236443-3', 'auto');
-	  ga('send', 'pageview');
+	if (navigator.userAgent.toLowerCase().match("mobile") != null)
+		alert("!!請使用電腦使用本網頁!!\n若使用其他裝置造成錯誤，概不負責\n(好啦，我之後會改好)")
+	ga('create', 'UA-43236443-3', 'auto');
+	ga('send', 'pageview');
 
 	</script>
+	<!--<script src="https://raw.githubusercontent.com/dansingerman/jQuery-Browser-Language/master/jquery.browserLanguage.js"></script>-->
 	<script src="//code.jquery.com/jquery.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '791606320879048',
-          xfbml      : true,
-          version    : 'v2.0'
-        });
-      };
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId      : '791606320879048',
+				xfbml      : true,
+				version    : 'v2.0'
+			});
+		};
+	var accessToken;
+	r1 = "./25px-Refine1.png";
+	r2 = "./25px-Refine2.png";
+	r3 = "./25px-Refine3.png";
+	r4 = "./25px-Refine4.png";
+	sublimate = {
+		"s1": false,
+		"s2": false,
+		"s3": false,
+		"s4": false
+	};
+	nowType = 0;
+	nowRace = 8;
+	function get(s){
+		return document.getElementById(s)
+	}
+	function now(){
+		var ctx = get("output");
+		get("oup").src = ctx.toDataURL("image/png")
+	}
+	function draw (d) {
+		if(d=="u"){
+			$("#load").modal("show")
+		}else if(d=='s'){
+			$("#sha").modal("hide")
+			$("#load").modal("show")
+		}
+		console.log("輸出中")
+		var ctx = get("output").getContext('2d');
+		ctx.textAlign = "left"
+		ctx.fillStyle = "black"
+		ctx.font = ""
+		var bg = new Image();
+		bg.onload = function() {
+		    ctx.drawImage(bg,-201,-1,887,499);
+			ctx.drawImage(get("img"),28,70,get("img").width,get("img").height);
+			var bd = new Image()
+			bd.onload = function () {
+				ctx.drawImage(bd,0,0,455,682)
+				ctx.drawImage(get("type"),10,8,73,73)
+				ctx.font = "bold 20px Arial";
+				ctx.fillStyle = "white"
+				ctx.fillText(get("name").value,100,37)
+				var s = new Image();
+				s.onload = function (){
+					for (var i = 0; i < get("numStar").value; i++) {
+						ctx.drawImage(s,100+(i*17),46,15,18)
+					};
+					ctx.font = "italic 32px Arial";
+					ctx.textAlign="right"
+					ctx.fillStyle = "white"
+					ctx.fillText(get("space").value,430,80)
+					ctx.font = "13px Arial"
+					ctx.fillText(get("cd").value,355,580)
+					if(get("cdLv").value == "最大")
+						ctx.fillStyle = "#08D7CE"
+					ctx.fillText(get("cdLv").value,423,579)
+					get("oup").src = get("output").toDataURL("image/png")
+					console.log("輸出完成")
+					if(d=="d")
+						downloadURL()
+					else if(d=="u")
+						sendToImgur()
+					else if(d == "s")
 
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-    </script>
+						shareToFB()
+				}
+				if(get("sublimation").checked){
+					ctx.drawImage(get("s1"),324,470,20,20)
+					ctx.drawImage(get("s2"),351,470,20,20)
+					ctx.drawImage(get("s3"),378,470,20,20)
+					ctx.drawImage(get("s4"),405,470,20,20)
+				}else{
+					ctx.drawImage(get("cover"),300,470,132,23)
+				}
+				ctx.font = "15px Arial";
+				ctx.textAlign="left"
+				ctx.fillStyle = "#E7E7E7"
+				ctx.fillText(get("actName").value,90,493)
+				ctx.fillText(get("leaName").value,90,585)
+				ctx.font = "13px Arial";
+				for (var i = 0; i < m(get("actBody").value.toString().split("\n").length,3); i++) {
+					ctx.fillText(get("actBody").value.toString().split("\n")[i],31,519+(i*16))
+				};
+				for (var i = 0; i < m(get("leaBody").value.toString().split("\n").length,3); i++) {
+					ctx.fillText(get("leaBody").value.toString().split("\n")[i],33,611+(i*16))
+				};
+				ctx.drawImage(get("imgRace"),240,444,20,20)
+				ctx.font = "bold 19px Arial";
+				ctx.textAlign="right"
+				ctx.fillStyle = "white"
+				ctx.fillText(get("race").value,426,461)
+				ctx.font = "21px"
+				ctx.fillText(get("atk").value,426,429)
+				ctx.fillText(get("health").value,223,429)
+				ctx.fillText(get("back").value,223,461)
+				ctx.font = "italic 32px arial"
+				ctx.fillText(get("nowLv").value,97,397)
+				if(get("nowLv").value == get("maxLv").value){
+					ctx.fillStyle = "#08D7CE"
+					ctx.font = "bold italic 15px arial"
+					ctx.fillText("最大",128,397)
+				}else{
+					ctx.font = "italic 15px arial"
+					ctx.fillText("/",103,397)
+					ctx.font = "bold italic 15px arial"
+					ctx.fillText(get("maxLv").value,123,397)
+				}
+				get("oup").src = get("output").toDataURL("image/png")
+				s.src = "star.png"
+			}
+			bd.src = "c.png"
+		};
+		bg.src = "card_background.jpg";
+	}
+	function m(a,b){
+		if(a>b)
+			return b;
+		else 
+			return a
+	}
+	function mt (a) {
+		return get("output").getContext("2d").measureText(a)
+	}
+	function addN (s) {
+		if(mt(s).width<385)
+			return s
+		var temp = ""
+		var a = ""
+		for (var i = 0; i < s.length; i++) {
+			temp += s[i];
+			if(mt(temp).width > 384){
+				if(s[i+1]!="\n")
+					temp+="\n"
+				a += temp
+				temp = "" 
+			}
+		};
+		a+=temp
+		return a
+	}
+	function ajaxCallJsonp(target,options){
+	    var data = $.getJSON(target,options);
+	}
+	window.fbAsyncInit = function() {
+	    FB.init({
+	    	appId: "791606320879048",
+	    	status: true, 
+	    	cookie: true, 
+	    	xfbml: true, 
+	    	oauth: true, 
+	    	version: 'v2.0'
+	    	}
+		);
+	}
+	function shareToFB () {
+		FB.getLoginStatus(function(response) {
+		    if (response.status === 'connected') {
+		        //已登入且和app連結
+		        var uid = response.authResponse.accessToken;
+		        accessToken = response.authResponse.accessToken;
+		        init();
+		    } else if (response.status === 'not_authorized') {
+		        //已登入但未與app連結
+		        login();
+		    } else {
+		        //未登入
+		        login()
+		    }
+		});
+	}
+	function login() {
+	    FB.login(function(response) {
+	        if (response.authResponse) {
+	            init()
+	        }else{
+	        	$("#load").modal("hide")
+				get("url").innerHTML = "登入失敗"
+				$("#sdone").modal("show")
+	        }
+	    }, { scope: 'public_profile,publish_actions' });
+	}
+	function init () {
+		var link = ""
+		var imgURL = ""
+		$.ajax({ 
+	    url: 'https://api.imgur.com/3/image',
+	    headers: {
+	        'Authorization': 'Client-ID e51ef6bcc76b94e'
+	    },
+	    type: 'POST',
+	    data: {
+	        'image': get("output").toDataURL("image/png").replace("data:image/png;base64,","")
+	    },
+	    datatype: 'JSON',
+	    success: function(req) {
+	    	imgURL = req.data.link
+	    	link = req.data.deletehash
+	    	FB.api('/me/photos', 'post', {
+	    		access_token: accessToken,
+		    	message: get("pd").value,
+		   		url:imgURL        
+				}, function(response){
+				    if (!response || response.error) {
+				    	$("#load").modal("hide")
+				        get("url").innerHTML = "分享錯誤"
+				        $("#sdone").modal("show")
+				        $.ajax({ 
+			    			url: 'https://api.imgur.com/3/image/'+link,
+			    			headers: {
+			        			'Authorization': 'Client-ID e51ef6bcc76b94e'
+			    			},	
+			    			type: 'DELETE',
+						});
+				    } else {
+				    	$("#load").modal("hide")
+				        get("url").innerHTML = "https://www.facebook.com/photo.php?fbid="+response.id.toString()
+				        get("url").href = get("url").innerHTML
+				        $("#sdone").modal("show")
+				        $.ajax({ 
+			    			url: 'https://api.imgur.com/3/image/'+link,
+			    			headers: {
+			        			'Authorization': 'Client-ID e51ef6bcc76b94e'
+			    			},	
+			    			type: 'DELETE',
+							});
+				    }
+
+				});
+			}
+		});
+	}
+	function times(s,n){
+		a = ""
+		for(var i = 0;i<n;i++){
+			a+=s
+		}
+		return a
+	}
+	function changeType(){
+		nowType = (nowType+1)%5
+		get("type").src = "./"+nowType.toString()+".png"
+	}
+	function changeStar (t) {
+		if(t.value<1){
+			t.value = 1
+		}else if(t.value > 12 ){
+			t.value = 12
+		}else if(isNaN(t.value)){
+			t.value = 1
+		}
+		get("star").innerHTML = times('<span class="star"></span>',t.value)+'<input onchange="changeStar(this)" id="numStar" min="1" max="12" type="number" value="'+t.value+'"/>'
+	}
+	function readFile(t) {
+	    var fr = new FileReader;
+	    fr.onload = function() {
+	    	get("img").src = fr.result;
+	    }
+	    fr.readAsDataURL(t.files[0]);
+	}
+	function raceChange (t) {
+		switch(t.value){
+			case "神族":
+				nowRace = 0;
+				break;
+			case "魔族":
+				nowRace = 1;
+				break;
+			case "人類":
+				nowRace = 2;
+				break;
+			case "龍類":
+				nowRace = 3;
+				break;
+			case "獸類":
+				nowRace = 4;
+				break;
+			case "進化素材":
+				nowRace = 5;
+				break;
+			case "強化素材":
+				nowRace = 6;
+				break;
+			case "妖精類":
+				nowRace = 7;
+				break;
+			default:
+				nowRace = 8;
+				break;
+		}
+	get("imgRace").src = "./race_" + nowRace.toString() + ".png"
+	}
+	function changeSublimation (t) {
+		if(!sublimate[t.id]){
+			for (var a = 1; a <= eval(t.id.slice(1,2)); a++ ){
+				get("s"+a.toString()).src = eval("r"+a.toString());
+				if(!sublimate["s"+a.toString()])
+					sublimate["s"+a.toString()] = !sublimate["s"+a.toString()]
+			};
+			
+		}
+		else{
+			for (var i = eval(t.id.slice(1,2)); i <= 4 ; i++) {
+				get("s"+i.toString()).src = "./n.png";
+				if(sublimate["s"+i.toString()])
+					sublimate["s"+i.toString()] = !sublimate["s"+i.toString()]
+			};
+		}
+	}
+	function sendToImgur () {
+		$.ajax({ 
+	    url: 'https://api.imgur.com/3/image',
+	    headers: {
+	        'Authorization': 'Client-ID e51ef6bcc76b94e'
+	    },
+	    type: 'POST',
+	    data: {
+	        'image': get("output").toDataURL("image/png").replace("data:image/png;base64,","")
+	    },
+	    datatype: 'JSON',
+	    success: function(req) {
+	    	var options = {
+	            URL: req.data.link,
+	            format: "json"
+	        };
+	        ajaxCallJsonp("http://card.boxhost.me/index.php",options);
+	    	$("#load").modal("hide")
+	    	get("link").href = req.data.link
+	    	get("link").innerHTML = req.data.link
+	    	$("#udone").modal("show")
+	    }
+		});
+	}	
+	function changeOpen (t) {
+		if(t.checked){
+			get("optionSublimation").innerHTML = '<img onclick="changeSublimation(this)" id="s1" height="20" width="20" style="position:relative;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s2" height="20" width="20" style="position:relative;left:7px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s3" height="20" width="20" style="position:relative;left:14px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s4" height="20" width="20" style="position:relative;left:21px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img src="h.png"/>'
+		}else{
+			for(var i = 1;i<=4;i++)
+				sublimate["s"+i.toString()] = false
+			get("optionSublimation").innerHTML = '<img style="position:relative;left:-25px;z-index: 10;" id="cover" height="23" width="132" src="./b.png"/>'
+		}
+	}
+	var downloadURL = function downloadURL() {
+		console.log("下載中")
+		var url = get("output").toDataURL("image/png")
+		var last = "data:application/force-download;" + url.toString().slice(15,url.toString().length)
+		get("a").href = last
+		get("a").download = get("name").value+".png"
+		try{
+			get("a").click()
+		}catch(e){
+			alert("此流覽器需要自行按右鍵下載")
+		}
+	}
+	</script>
 	<style>
-
+		iframe{
+    		overflow:hidden;
+		}
+		iframe::-webkit-scrollbar {  
+			display: none;
+		}
+		iframe::-moz-scrollbar {  
+			display: none;
+		}
 		*{
 			font-family: arial,"Times New Roman",times;
 		}
@@ -151,7 +509,7 @@
 		<img id="img" src="n.png" style="z-index:101;position:absolute;left:33px;top:80px;" height="327" width="405"/>
 		<div id="bord">
 			<span id="change" onclick="changeType()">
-				<img id="type" src="./0.png"></img>
+				<img id="type" src="./0.png" />
 			</span>
 			<div id="header">
 				<input id="name" maxlength="15" type="text" placeholder="請輸入名稱"/>
@@ -234,9 +592,11 @@
 	<button onclick='draw("u");' style="height:40px;width:111px;cursor:default;">傳至Imgur</button>
 	<button onclick="$('#sha').modal('show')"  style="cursor:default;height:40px;width:111px;">分享至FB</button>
 	<div class="fb-like" data-href="https://www.facebook.com/ToS.Card.Maker" data-layout="standard" data-action="like" data-show-faces="false" data-share="false"></div>
+	<br/>
+	別人的作品：
+	<iframe frameborder="0" width="100%" height="400" src="http://card.boxhost.me/frame.php"></iframe>
 	<div id="fb-root"></div>
 	<!--<button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>-->
-
 	<div class="modal fade bs-example-modal-lg" id="sha" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   		<div class="modal-dialog modal-lg">
     		<div class="modal-content">
@@ -307,352 +667,4 @@
   		</div>
 	</div>
 </body>
-<script>
-var accessToken;
-r1 = "./25px-Refine1.png";
-r2 = "./25px-Refine2.png";
-r3 = "./25px-Refine3.png";
-r4 = "./25px-Refine4.png";
-sublimate = {
-	"s1": false,
-	"s2": false,
-	"s3": false,
-	"s4": false
-};
-nowType = 0;
-nowRace = 8;
-function get(s){
-	return document.getElementById(s)
-}
-function now(){
-	var ctx = get("output");
-	get("oup").src = ctx.toDataURL("image/png")
-}
-function draw (d) {
-	if(d=="u"){
-		$("#load").modal("show")
-	}else if(d=='s'){
-		$("#sha").modal("hide")
-		$("#load").modal("show")
-	}
-	console.log("輸出中")
-	var ctx = get("output").getContext('2d');
-	ctx.textAlign = "left"
-	ctx.fillStyle = "black"
-	ctx.font = ""
-	var bg = new Image();
-	bg.onload = function() {
-	    ctx.drawImage(bg,-201,-1,887,499);
-		ctx.drawImage(get("img"),28,70,get("img").width,get("img").height);
-		var bd = new Image()
-		bd.onload = function () {
-			ctx.drawImage(bd,0,0,455,682)
-			ctx.drawImage(get("type"),10,8,73,73)
-			ctx.font = "bold 20px Arial";
-			ctx.fillStyle = "white"
-			ctx.fillText(get("name").value,100,37)
-			var s = new Image();
-			s.onload = function (){
-				for (var i = 0; i < get("numStar").value; i++) {
-					ctx.drawImage(s,100+(i*17),46,15,18)
-				};
-				ctx.font = "italic 32px Arial";
-				ctx.textAlign="right"
-				ctx.fillStyle = "white"
-				ctx.fillText(get("space").value,430,80)
-				ctx.font = "13px Arial"
-				ctx.fillText(get("cd").value,355,580)
-				if(get("cdLv").value == "最大")
-					ctx.fillStyle = "#08D7CE"
-				ctx.fillText(get("cdLv").value,423,579)
-				get("oup").src = get("output").toDataURL("image/png")
-				console.log("輸出完成")
-				if(d=="d")
-					downloadURL()
-				else if(d=="u")
-					sendToImgur()
-				else if(d == "s")
-
-					shareToFB()
-			}
-			if(get("sublimation").checked){
-				ctx.drawImage(get("s1"),324,470,20,20)
-				ctx.drawImage(get("s2"),351,470,20,20)
-				ctx.drawImage(get("s3"),378,470,20,20)
-				ctx.drawImage(get("s4"),405,470,20,20)
-			}else{
-				ctx.drawImage(get("cover"),300,470,132,23)
-			}
-			ctx.font = "15px Arial";
-			ctx.textAlign="left"
-			ctx.fillStyle = "#E7E7E7"
-			ctx.fillText(get("actName").value,90,493)
-			ctx.fillText(get("leaName").value,90,585)
-			ctx.font = "13px Arial";
-			for (var i = 0; i < m(get("actBody").value.toString().split("\n").length,3); i++) {
-				ctx.fillText(get("actBody").value.toString().split("\n")[i],33,519+(i*16))
-			};
-			for (var i = 0; i < m(get("leaBody").value.toString().split("\n").length,3); i++) {
-				ctx.fillText(get("leaBody").value.toString().split("\n")[i],33,611+(i*16))
-			};
-			ctx.drawImage(get("imgRace"),240,444,20,20)
-			ctx.font = "bold 19px Arial";
-			ctx.textAlign="right"
-			ctx.fillStyle = "white"
-			ctx.fillText(get("race").value,426,461)
-			ctx.font = "21px"
-			ctx.fillText(get("atk").value,426,429)
-			ctx.fillText(get("health").value,223,429)
-			ctx.fillText(get("back").value,223,461)
-			ctx.font = "italic 32px arial"
-			ctx.fillText(get("nowLv").value,97,397)
-			if(get("nowLv").value == get("maxLv").value){
-				ctx.fillStyle = "#08D7CE"
-				ctx.font = "bold italic 15px arial"
-				ctx.fillText("最大",128,397)
-			}else{
-				ctx.font = "italic 15px arial"
-				ctx.fillText("/",103,397)
-				ctx.font = "bold italic 15px arial"
-				ctx.fillText(get("maxLv").value,123,397)
-			}
-			get("oup").src = get("output").toDataURL("image/png")
-			s.src = "star.png"
-		}
-		bd.src = "c.png"
-	};
-	bg.src = "card_background.jpg";
-}
-function m(a,b){
-	if(a>b)
-		return b;
-	else 
-		return a
-}
-function mt (a) {
-	return get("output").getContext("2d").measureText(a)
-}
-function addN (s) {
-	if(mt(s).width<385)
-		return s
-	var temp = ""
-	var a = ""
-	for (var i = 0; i < s.length; i++) {
-		temp += s[i];
-		if(mt(temp).width > 384){
-			if(s[i+1]!="\n")
-				temp+="\n"
-			a += temp
-			temp = "" 
-		}
-	};
-	a+=temp
-	return a
-}
-window.fbAsyncInit = function() {
-    FB.init({
-    	appId: "791606320879048",
-    	status: true, 
-    	cookie: true, 
-    	xfbml: true, 
-    	oauth: true, 
-    	version: 'v2.0'
-    	}
-	);
-}
-function shareToFB () {
-	FB.getLoginStatus(function(response) {
-	    if (response.status === 'connected') {
-	        //已登入且和app連結
-	        var uid = response.authResponse.accessToken;
-	        accessToken = response.authResponse.accessToken;
-	        init();
-	    } else if (response.status === 'not_authorized') {
-	        //已登入但未與app連結
-	        login();
-	    } else {
-	        //未登入
-	        login()
-	    }
-	});
-}
-function login() {
-    FB.login(function(response) {
-        if (response.authResponse) {
-            init()
-        }else{
-        	$("#load").modal("hide")
-			get("url").innerHTML = "登入失敗"
-			$("#sdone").modal("show")
-        }
-    }, { scope: 'public_profile,publish_actions' });
-}
-function init () {
-	var link = ""
-	var imgURL = ""
-	$.ajax({ 
-    url: 'https://api.imgur.com/3/image',
-    headers: {
-        'Authorization': 'Client-ID e51ef6bcc76b94e'
-    },
-    type: 'POST',
-    data: {
-        'image': get("output").toDataURL("image/png").replace("data:image/png;base64,","")
-    },
-    datatype: 'JSON',
-    success: function(req) {
-    	imgURL = req.data.link
-    	link = req.data.deletehash
-    	FB.api('/me/photos', 'post', {
-    		access_token: accessToken,
-	    	message: get("pd").value,
-	   		url:imgURL        
-			}, function(response){
-			    if (!response || response.error) {
-			    	$("#load").modal("hide")
-			        get("url").innerHTML = "分享錯誤"
-			        $("#sdone").modal("show")
-			        $.ajax({ 
-		    			url: 'https://api.imgur.com/3/image/'+link,
-		    			headers: {
-		        			'Authorization': 'Client-ID e51ef6bcc76b94e'
-		    			},	
-		    			type: 'DELETE',
-					});
-			    } else {
-			    	$("#load").modal("hide")
-			        get("url").innerHTML = "https://www.facebook.com/photo.php?fbid="+response.id.toString()
-			        get("url").href = get("url").innerHTML
-			        $("#sdone").modal("show")
-			        $.ajax({ 
-		    			url: 'https://api.imgur.com/3/image/'+link,
-		    			headers: {
-		        			'Authorization': 'Client-ID e51ef6bcc76b94e'
-		    			},	
-		    			type: 'DELETE',
-						});
-			    }
-
-			});
-		}
-	});
-}
-function times(s,n){
-	a = ""
-	for(var i = 0;i<n;i++){
-		a+=s
-	}
-	return a
-}
-function changeType(){
-	nowType = (nowType+1)%5
-	get("type").src = "./"+nowType.toString()+".png"
-}
-function changeStar (t) {
-	if(t.value<1){
-		t.value = 1
-	}else if(t.value > 12 ){
-		t.value = 12
-	}else if(isNaN(t.value)){
-		t.value = 1
-	}
-	get("star").innerHTML = times('<span class="star"></span>',t.value)+'<input onchange="changeStar(this)" id="numStar" min="1" max="12" type="number" value="'+t.value+'"/>'
-}
-function readFile(t) {
-    var fr = new FileReader;
-    fr.onload = function() {
-    	get("img").src = fr.result;
-    }
-    fr.readAsDataURL(t.files[0]);
-}
-function raceChange (t) {
-	switch(t.value){
-		case "神族":
-			nowRace = 0;
-			break;
-		case "魔族":
-			nowRace = 1;
-			break;
-		case "人類":
-			nowRace = 2;
-			break;
-		case "龍類":
-			nowRace = 3;
-			break;
-		case "獸類":
-			nowRace = 4;
-			break;
-		case "進化素材":
-			nowRace = 5;
-			break;
-		case "強化素材":
-			nowRace = 6;
-			break;
-		case "妖精類":
-			nowRace = 7;
-			break;
-		default:
-			nowRace = 8;
-			break;
-	}
-get("imgRace").src = "./race_" + nowRace.toString() + ".png"
-}
-function changeSublimation (t) {
-	if(!sublimate[t.id]){
-		for (var a = 1; a <= eval(t.id.slice(1,2)); a++ ){
-			get("s"+a.toString()).src = eval("r"+a.toString());
-			if(!sublimate["s"+a.toString()])
-				sublimate["s"+a.toString()] = !sublimate["s"+a.toString()]
-		};
-		
-	}
-	else{
-		for (var i = eval(t.id.slice(1,2)); i <= 4 ; i++) {
-			get("s"+i.toString()).src = "./n.png";
-			if(sublimate["s"+i.toString()])
-				sublimate["s"+i.toString()] = !sublimate["s"+i.toString()]
-		};
-	}
-}
-function sendToImgur () {
-	$.ajax({ 
-    url: 'https://api.imgur.com/3/image',
-    headers: {
-        'Authorization': 'Client-ID e51ef6bcc76b94e'
-    },
-    type: 'POST',
-    data: {
-        'image': get("output").toDataURL("image/png").replace("data:image/png;base64,","")
-    },
-    datatype: 'JSON',
-    success: function(req) {
-    	$("#load").modal("hide")
-    	get("link").href = req.data.link
-    	get("link").innerHTML = req.data.link
-    	$("#udone").modal("show")
-    }
-	});
-}	
-function changeOpen (t) {
-	if(t.checked){
-		get("optionSublimation").innerHTML = '<img onclick="changeSublimation(this)" id="s1" height="20" width="20" style="position:relative;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s2" height="20" width="20" style="position:relative;left:7px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s3" height="20" width="20" style="position:relative;left:14px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img onclick="changeSublimation(this)" id="s4" height="20" width="20" style="position:relative;left:21px;top:-2px;cursor:pointer;border: none;outline: none;" src="./n.png"/><img src="h.png"/>'
-	}else{
-		for(var i = 1;i<=4;i++)
-			sublimate["s"+i.toString()] = false
-		get("optionSublimation").innerHTML = '<img style="position:relative;left:-25px;z-index: 10;" id="cover" height="23" width="132" src="./b.png"/>'
-	}
-}
-var downloadURL = function downloadURL() {
-	console.log("下載中")
-	var url = get("output").toDataURL("image/png")
-	var last = "data:application/force-download;" + url.toString().slice(15,url.toString().length)
-	get("a").href = last
-	get("a").download = get("name").value+".png"
-	try{
-		get("a").click()
-	}catch(e){
-		alert("此流覽器需要自行按右鍵下載")
-	}
-}
-</script>
 </html>

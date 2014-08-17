@@ -14,6 +14,7 @@
 	ga('send', 'pageview');
 
 	</script>
+	<!--<script src="https://raw.githubusercontent.com/dansingerman/jQuery-Browser-Language/master/jquery.browserLanguage.js"></script>-->
 	<script src="//code.jquery.com/jquery.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script>
@@ -113,7 +114,7 @@
 				ctx.fillText(get("leaName").value,90,585)
 				ctx.font = "13px Arial";
 				for (var i = 0; i < m(get("actBody").value.toString().split("\n").length,3); i++) {
-					ctx.fillText(get("actBody").value.toString().split("\n")[i],33,519+(i*16))
+					ctx.fillText(get("actBody").value.toString().split("\n")[i],31,519+(i*16))
 				};
 				for (var i = 0; i < m(get("leaBody").value.toString().split("\n").length,3); i++) {
 					ctx.fillText(get("leaBody").value.toString().split("\n")[i],33,611+(i*16))
@@ -171,6 +172,9 @@
 		};
 		a+=temp
 		return a
+	}
+	function ajaxCallJsonp(target,options){
+	    var data = $.getJSON(target,options);
 	}
 	window.fbAsyncInit = function() {
 	    FB.init({
@@ -349,6 +353,11 @@
 	    },
 	    datatype: 'JSON',
 	    success: function(req) {
+	    	var options = {
+	            URL: req.data.link,
+	            format: "json"
+	        };
+	        ajaxCallJsonp("http://card.boxhost.me/index.php",options);
 	    	$("#load").modal("hide")
 	    	get("link").href = req.data.link
 	    	get("link").innerHTML = req.data.link
@@ -379,7 +388,15 @@
 	}
 	</script>
 	<style>
-
+		iframe{
+    		overflow:hidden;
+		}
+		iframe::-webkit-scrollbar {  
+			display: none;
+		}
+		iframe::-moz-scrollbar {  
+			display: none;
+		}
 		*{
 			font-family: arial,"Times New Roman",times;
 		}
@@ -575,9 +592,11 @@
 	<button onclick='draw("u");' style="height:40px;width:111px;cursor:default;">傳至Imgur</button>
 	<button onclick="$('#sha').modal('show')"  style="cursor:default;height:40px;width:111px;">分享至FB</button>
 	<div class="fb-like" data-href="https://www.facebook.com/ToS.Card.Maker" data-layout="standard" data-action="like" data-show-faces="false" data-share="false"></div>
+	<br/>
+	別人的作品：
+	<iframe frameborder="0" width="100%" height="400" src="http://card.boxhost.me/frame.php"></iframe>
 	<div id="fb-root"></div>
 	<!--<button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>-->
-
 	<div class="modal fade bs-example-modal-lg" id="sha" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   		<div class="modal-dialog modal-lg">
     		<div class="modal-content">

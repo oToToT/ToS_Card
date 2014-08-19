@@ -66,8 +66,10 @@
 		ctx.font = ""
 		var bg = new Image();
 		bg.onload = function() {
+			lef = parseInt(get("img").style.left.slice(0,((get("img").style.left.length)-2)))
+			to = parseInt(get("img").style.top.slice(0,((get("img").style.top.length)-2)))
 		    ctx.drawImage(bg,-201,-1,887,499);
-			ctx.drawImage(get("img"),28,70,get("img").width,get("img").height);
+			ctx.drawImage(get("img"),lef,to,get("img").width,get("img").height);
 			var bd = new Image()
 			bd.onload = function () {
 				ctx.drawImage(bd,0,0,455,682)
@@ -286,11 +288,73 @@
 		get("star").innerHTML = times('<span class="star"></span>',t.value)+'<input onchange="changeStar(this)" id="numStar" min="1" max="12" type="number" value="'+t.value+'"/>'
 	}
 	function readFile(t) {
+		get("imgLabel").setAttribute("for","")
+		get("imgLabel").style.cursor = "default"
+		get("imgChoose").style.display = "block"
+		get("movableIMG").style.display = "block"
+		get("IMGleft").style.display = "block"
+		get("IMGright").style.display = "block"
+		get("IMGtop").style.display = "block"
+		get("IMGbuttom").style.display = "block"
+		get("IMGrt").style.display = "block"
+		get("IMGlt").style.display = "block"
+		get("IMGrb").style.display = "block"
+		get("IMGlb").style.display = "block"
 	    var fr = new FileReader;
 	    fr.onload = function() {
-	    	get("img").src = fr.result;
+	    	get("img").height = 327
+	    	get("img").width = 405
+	    	get("img").style.top = "73px"
+	    	get("img").style.left = "28px"
+	    	get("movableIMG").style.height = "327px"
+	    	get("movableIMG").style.width = "405px"
+	    	get("movableIMG").style.top = "-13px"
+	    	get("movableIMG").style.left = "5px"
+	    	var Img = new Image()
+	    	Img.src = fr.result
+	    	Img.onload = function(){
+		    	if(Img.width > Img.height){
+		    		get("img").height = Img.height/(Img.width/405)
+		    		get("movableIMG").style.height = get("img").height.toString() + "px"
+		    		get("img").width = 405
+		    	}else{
+		    		get("img").height = 327
+		    		get("img").width = Img.width/(Img.height/327)
+		    		get("movableIMG").style.width = get("img").width.toString() + "px"
+		    	}
+		    	relo()
+				get("img").src = fr.result;
+				get("img").style.display = "block"
+		    }
 	    }
-	    fr.readAsDataURL(t.files[0]);
+	    try{
+	    	fr.readAsDataURL(t.files[0]);
+	    	get("img").style.display = "none"
+	    }catch(e){
+			get("img").style.display = "block"
+	    }
+	}
+	function relo () {
+		he = parseInt(get("movableIMG").style.height.slice(0,((get("movableIMG").style.height.length)-2)))
+	    wi = parseInt(get("movableIMG").style.width.slice(0,((get("movableIMG").style.width.length)-2)))
+	    t = parseInt(get("movableIMG").style.top.slice(0,((get("movableIMG").style.top.length)-2)))
+	    le = parseInt(get("movableIMG").style.left.slice(0,((get("movableIMG").style.left.length)-2)))
+	    get("IMGlt").style.top = (t-10).toString()+"px"
+	    get("IMGlt").style.left = (le-10).toString()+"px"
+	    get("IMGrt").style.left = (le+wi-10).toString()+"px"
+	    get("IMGrt").style.top = (t-10).toString()+"px"
+	    get("IMGlb").style.top = (t+he-10).toString()+"px"
+	    get("IMGlb").style.left = (le-10).toString()+"px"
+	    get("IMGrb").style.left = (le+wi-10).toString()+"px"
+	    get("IMGrb").style.top = (t+he-10).toString()+"px"
+	    get("IMGleft").style.left = (le-10).toString()+"px"
+	    get("IMGleft").style.top = (t+(he/2)-10).toString()+"px"
+	    get("IMGright").style.left = (le+wi-10).toString()+"px"
+	    get("IMGright").style.top = (t+(he/2)-10).toString()+"px"
+	    get("IMGtop").style.left = (le+(wi/2)-10).toString()+"px"
+	    get("IMGtop").style.top = (t-10).toString()+"px"
+	    get("IMGbuttom").style.left = (le+(wi/2)-10).toString()+"px"
+	    get("IMGbuttom").style.top = (t+he-10).toString()+"px"
 	}
 	function raceChange (t) {
 		switch(t.value){
@@ -385,6 +449,214 @@
 		}catch(e){
 			alert("此流覽器需要自行按右鍵下載")
 		}
+	}
+	function moveStart (th,e) {
+		get("imgChoose").style.display = "none"
+		tempX = e.pageX
+		tempY = e.pageY
+		th.setAttribute("onmousemove" , "move(this,event)")
+		th.setAttribute("onmouseup" , "moveEnd(this,event)")
+		th.setAttribute("onmouseout" , "moveEnd(this,event)")
+	}
+	function move (th,e) {
+	    t = parseInt(get("movableIMG").style.top.slice(0,((get("movableIMG").style.top.length)-2)))
+	    le = parseInt(get("movableIMG").style.left.slice(0,((get("movableIMG").style.left.length)-2)))
+	    imgT = parseInt(get("img").style.top.slice(0,((get("img").style.top.length)-2)))
+	    imgL = parseInt(get("img").style.left.slice(0,((get("img").style.left.length)-2)))
+	    imgH = parseInt(get("img").height)
+	    imgW = parseInt(get("img").width)
+		nowX = e.pageX
+		nowY = e.pageY
+		if(imgH+(imgT+(nowY - tempY))<399&&(imgL+(nowX - tempX))+imgW<434&&(imgT+(nowY - tempY))>72&&(imgL+(nowX - tempX))>27){
+			th.style.left = (le+(nowX - tempX)).toString() + "px"
+			get("img").style.left = (imgL+(nowX - tempX)).toString() + "px"
+			th.style.top = (t+(nowY - tempY)).toString() + "px"
+			get("img").style.top = (imgT+(nowY - tempY)).toString() + "px"
+		}
+		relo()
+		tempX = nowX
+		tempY = nowY
+	}
+	function moveEnd (th,e){
+		th.setAttribute("onmousemove" , "")
+		th.setAttribute("onmouseup" , "")
+		th.setAttribute("onmouseout" , "")
+		get("imgChoose").style.display = "block"
+	}
+	function changeSizeStart(th,e){
+		get("imgChoose").style.display = "none"
+		tempX = e.pageX
+		tempY = e.pageY
+		th.setAttribute("onmousemove" , th.id.toLowerCase()+"(this,event)")
+		th.setAttribute("onmouseup" , "moveEnd(this,event)")
+		th.setAttribute("onmouseout" , "moveEnd(this,event)")
+	}
+	function imgtop (th,e) {
+		nowY = e.pageY
+		he = parseInt(get("movableIMG").style.height.slice(0,((get("movableIMG").style.height.length)-2)))
+		t = parseInt(get("movableIMG").style.top.slice(0,((get("movableIMG").style.top.length)-2)))
+		Imgt = parseInt(get("img").style.top.slice(0,((get("img").style.top.length)-2)))
+		Imgh = parseInt(get("img").height)
+		if((Imgt+(nowY - tempY))>72){
+		    get("movableIMG").style.height = (he-(nowY - tempY)).toString() + "px"
+		    get("movableIMG").style.top = (t+(nowY - tempY)).toString() + "px"
+		    get("img").height = (Imgh-(nowY - tempY))
+		    get("img").style.top = (Imgt+(nowY - tempY)).toString() + "px"
+		}
+	    tempY = nowY
+	    relo()
+	}
+	function imglt (th,e) {
+		nowY = e.pageY
+		he = parseInt(get("movableIMG").style.height.slice(0,((get("movableIMG").style.height.length)-2)))
+		t = parseInt(get("movableIMG").style.top.slice(0,((get("movableIMG").style.top.length)-2)))
+		Imgt = parseInt(get("img").style.top.slice(0,((get("img").style.top.length)-2)))
+		Imgh = parseInt(get("img").height)
+		if((Imgt+(nowY - tempY))>72){
+		    get("movableIMG").style.height = (he-(nowY - tempY)).toString() + "px"
+		    get("movableIMG").style.top = (t+(nowY - tempY)).toString() + "px"
+		    get("img").height = (Imgh-(nowY - tempY))
+		    get("img").style.top = (Imgt+(nowY - tempY)).toString() + "px"
+		}
+	    tempY = nowY
+	    relo()
+		nowX = e.pageX
+		w = parseInt(get("movableIMG").style.width.slice(0,((get("movableIMG").style.width.length)-2)))
+		l = parseInt(get("movableIMG").style.left.slice(0,((get("movableIMG").style.left.length)-2)))
+		Imgl = parseInt(get("img").style.left.slice(0,((get("img").style.left.length)-2)))
+		Imgw = parseInt(get("img").width)
+		if(Imgw-(nowX - tempX) > -1&&(Imgl+(nowX - tempX))>27){
+		    get("movableIMG").style.width = (w-(nowX - tempX)).toString() + "px"
+		    get("movableIMG").style.left = (l+(nowX - tempX)).toString() + "px"
+		    get("img").width = (Imgw-(nowX - tempX))
+		    get("img").style.left = (Imgl+(nowX - tempX)).toString() + "px"
+		}
+	    tempX = nowX
+	    relo()
+	}
+	function imgrt (th,e) {
+		nowY = e.pageY
+		he = parseInt(get("movableIMG").style.height.slice(0,((get("movableIMG").style.height.length)-2)))
+		t = parseInt(get("movableIMG").style.top.slice(0,((get("movableIMG").style.top.length)-2)))
+		Imgt = parseInt(get("img").style.top.slice(0,((get("img").style.top.length)-2)))
+		Imgh = parseInt(get("img").height)
+		if((Imgt+(nowY - tempY))>72){
+		    get("movableIMG").style.height = (he-(nowY - tempY)).toString() + "px"
+		    get("movableIMG").style.top = (t+(nowY - tempY)).toString() + "px"
+		    get("img").height = (Imgh-(nowY - tempY))
+		    get("img").style.top = (Imgt+(nowY - tempY)).toString() + "px"
+		}
+	    tempY = nowY
+	    relo()
+		nowX = e.pageX
+		w = parseInt(get("movableIMG").style.width.slice(0,((get("movableIMG").style.width.length)-2)))
+		Imgw = parseInt(get("img").width)
+		Imgl = parseInt(get("img").style.left.slice(0,((get("img").style.left.length)-2)))
+		if((Imgw+(nowX - tempX))>-1&&Imgl+(Imgw+(nowX - tempX))<434){
+			get("movableIMG").style.width = (w+(nowX - tempX)).toString() + "px"
+			get("img").width = (Imgw+(nowX - tempX))
+		}
+		tempX = nowX
+		relo()
+	}
+	function imgleft (th,e) {
+		nowX = e.pageX
+		w = parseInt(get("movableIMG").style.width.slice(0,((get("movableIMG").style.width.length)-2)))
+		l = parseInt(get("movableIMG").style.left.slice(0,((get("movableIMG").style.left.length)-2)))
+		Imgl = parseInt(get("img").style.left.slice(0,((get("img").style.left.length)-2)))
+		Imgw = parseInt(get("img").width)
+		if(Imgw-(nowX - tempX) > -1&&(Imgl+(nowX - tempX))>27){
+		    get("movableIMG").style.width = (w-(nowX - tempX)).toString() + "px"
+		    get("movableIMG").style.left = (l+(nowX - tempX)).toString() + "px"
+		    get("img").width = (Imgw-(nowX - tempX))
+		    get("img").style.left = (Imgl+(nowX - tempX)).toString() + "px"
+		}
+	    tempX = nowX
+	    relo()
+	}
+	function imgright (th,e) {
+		nowX = e.pageX
+		w = parseInt(get("movableIMG").style.width.slice(0,((get("movableIMG").style.width.length)-2)))
+		Imgw = parseInt(get("img").width)
+		Imgl = parseInt(get("img").style.left.slice(0,((get("img").style.left.length)-2)))
+		if((Imgw+(nowX - tempX))>-1&&Imgl+(Imgw+(nowX - tempX))<434){
+			get("movableIMG").style.width = (w+(nowX - tempX)).toString() + "px"
+			get("img").width = (Imgw+(nowX - tempX))
+		}
+		tempX = nowX
+		relo()
+
+	}
+	function imglb (th,e) {
+		nowX = e.pageX
+		w = parseInt(get("movableIMG").style.width.slice(0,((get("movableIMG").style.width.length)-2)))
+		l = parseInt(get("movableIMG").style.left.slice(0,((get("movableIMG").style.left.length)-2)))
+		Imgl = parseInt(get("img").style.left.slice(0,((get("img").style.left.length)-2)))
+		Imgw = parseInt(get("img").width)
+		if(Imgw-(nowX - tempX) > -1&&(Imgl+(nowX - tempX))>27){
+		    get("movableIMG").style.width = (w-(nowX - tempX)).toString() + "px"
+		    get("movableIMG").style.left = (l+(nowX - tempX)).toString() + "px"
+		    get("img").width = (Imgw-(nowX - tempX))
+		    get("img").style.left = (Imgl+(nowX - tempX)).toString() + "px"
+		}
+	    tempX = nowX
+	    relo()
+		nowY = e.pageY
+		he = parseInt(get("movableIMG").style.height.slice(0,((get("movableIMG").style.height.length)-2)))
+		Imgh = parseInt(get("img").height)
+		Imgt = parseInt(get("img").style.top.slice(0,((get("img").style.top.length)-2)))
+		if((Imgh+(nowY - tempY))+Imgt<399){
+			get("movableIMG").style.height = (he+(nowY - tempY)).toString() + "px"
+			get("img").height = (Imgh+(nowY - tempY))
+		}
+		tempY = nowY
+		relo()
+	}
+	function imgbuttom (th,e) {
+		nowY = e.pageY
+		he = parseInt(get("movableIMG").style.height.slice(0,((get("movableIMG").style.height.length)-2)))
+		Imgh = parseInt(get("img").height)
+		Imgt = parseInt(get("img").style.top.slice(0,((get("img").style.top.length)-2)))
+		if((Imgh+(nowY - tempY))+Imgt<399){
+			get("movableIMG").style.height = (he+(nowY - tempY)).toString() + "px"
+			get("img").height = (Imgh+(nowY - tempY))
+		}
+		tempY = nowY
+		relo()
+	}
+	function imgrb (th,e) {
+		nowX = e.pageX
+		w = parseInt(get("movableIMG").style.width.slice(0,((get("movableIMG").style.width.length)-2)))
+		Imgw = parseInt(get("img").width)
+		Imgl = parseInt(get("img").style.left.slice(0,((get("img").style.left.length)-2)))
+		if((Imgw+(nowX - tempX))>-1&&Imgl+(Imgw+(nowX - tempX))<434){
+			get("movableIMG").style.width = (w+(nowX - tempX)).toString() + "px"
+			get("img").width = (Imgw+(nowX - tempX))
+		}
+		tempX = nowX
+		relo()
+		nowY = e.pageY
+		he = parseInt(get("movableIMG").style.height.slice(0,((get("movableIMG").style.height.length)-2)))
+		Imgh = parseInt(get("img").height)
+		Imgt = parseInt(get("img").style.top.slice(0,((get("img").style.top.length)-2)))
+		if((Imgh+(nowY - tempY))+Imgt<399){
+			get("movableIMG").style.height = (he+(nowY - tempY)).toString() + "px"
+			get("img").height = (Imgh+(nowY - tempY))
+		}
+		tempY = nowY
+		relo()
+	}
+	function disableSelection(target){
+		try{
+			target.onselectstart=function(){return false}
+		}catch(e){
+			try{
+				target.style.MozUserSelect="none"
+			}catch(e){
+				target.onmousedown=function(){return false}
+			}
+		}
+			
 	}
 	</script>
 	<style>
@@ -500,13 +772,38 @@
 		#health,#back,#atk{
 			text-align:right
 		}
+		.control_box{
+			height:20px;
+			width: 20px;
+			background: #aaa;
+			position:absolute;
+		}
+		.control_box:hover{
+			background: #666;
+		}
+		#IMGtop,#IMGbuttom{
+			cursor:n-resize;
+		}
+		#IMGleft,#IMGright{
+			cursor:e-resize
+		}
+		#IMGrb,#IMGlt{
+			cursor: nw-resize;
+		}
+		#IMGlb,#IMGrt{
+			cursor: sw-resize;
+		}
+		#movableIMG{
+			cursor:all-scroll;
+			position:absolute;
+		}
 	</style>
 	<title>神魔卡片製造機</title>
 </head>
-<body>
+<body onload="disableSelection(this)">
 	<input accept="image/*" onchange="readFile(this)" id="file" style="display:none;" type="file"/>
 	<div id="main">
-		<img id="img" src="n.png" style="z-index:101;position:absolute;left:33px;top:80px;" height="327" width="405"/>
+		<img id="img" src="n.png" style="z-index:101;position:absolute;left:28px;top:73px;" height="327" width="405"/>
 		<div id="bord">
 			<span id="change" onclick="changeType()">
 				<img id="type" src="./0.png" />
@@ -519,7 +816,20 @@
 				</div>
 			</div>
 			<input onchange="if(this.value!='') this.value = Math.round(this.value);if(isNaN(this.value)) this.value=''" maxlength="3" placeholder="空間" id="space" type="text"/>
-			<label id="imgLabel" for="file"></label>
+			<label id="imgLabel" for="file">
+				<div onmousedown="moveStart(this,event)" id="movableIMG" style="display:none;top: -13px; left: 5px;"></div>
+				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGleft"></div>
+				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGright"></div>
+				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGtop"></div>
+				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGbuttom"></div>
+				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGlt"></div>
+				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGrt"></div>
+				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGlb"></div>
+				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGrb"></div>
+				<label id="imgChoose" style="display:none;cursor:pointer;position:absolute;left:350px;top:8px;" for="file">
+					<img height="50" src="./caMERA1.png" onmouseout='this.src="./caMERA1.png"' onmouseover="this.src='./caMERA2.png'" width="50"></img>
+				</label>
+			</label>
 			<div class="level" style="position:relative;top: 10px;left:60px;">
 				<input placeholder="1" maxlength="2" type="text" id="nowLv"/>
 				<span style="font-size:15px;color:white;">/</span>

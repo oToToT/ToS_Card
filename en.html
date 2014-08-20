@@ -3,52 +3,48 @@
 <head>
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-	<script src="//code.jquery.com/jquery.min.js"></script>
-	<script>
-	(function(a){a.browserLanguage=function(c){var b;a.ajax({url:"http://ajaxhttpheaders.appspot.com",dataType:"jsonp",success:function(a){b=a["Accept-Language"].substring(0,2);c(d[b],a["Accept-Language"])}})};var d={ab:"Abkhazian",af:"Afrikaans",an:"Aragonese",ar:"Arabic",as:"Assamese",az:"Azerbaijani",be:"Belarusian",bg:"Bulgarian",bn:"Bengali",bo:"Tibetan",br:"Breton",bs:"Bosnian",ca:"Catalan / Valencian",ce:"Chechen",co:"Corsican",cs:"Czech",cu:"Church Slavic",cy:"Welsh",da:"Danish",de:"German",el:"Greek",
-en:"English",eo:"Esperanto",es:"Spanish / Castilian",et:"Estonian",eu:"Basque",fa:"Persian",fi:"Finnish",fj:"Fijian",fo:"Faroese",fr:"French",fy:"Western Frisian",ga:"Irish",gd:"Gaelic / Scottish Gaelic",gl:"Galician",gv:"Manx",he:"Hebrew",hi:"Hindi",hr:"Croatian",ht:"Haitian; Haitian Creole",hu:"Hungarian",hy:"Armenian",id:"Indonesian",is:"Icelandic",it:"Italian",ja:"Japanese",jv:"Javanese",ka:"Georgian",kg:"Kongo",ko:"Korean",ku:"Kurdish",kw:"Cornish",ky:"Kirghiz",la:"Latin",lb:"Luxembourgish Letzeburgesch",
-li:"Limburgan Limburger Limburgish",ln:"Lingala",lt:"Lithuanian",lv:"Latvian",mg:"Malagasy",mk:"Macedonian",mn:"Mongolian",mo:"Moldavian",ms:"Malay",mt:"Maltese",my:"Burmese",nb:"Norwegian (Bokm\u00e5l)",ne:"Nepali",nl:"Dutch",nn:"Norwegian (Nynorsk)",no:"Norwegian",oc:"Occitan (post 1500); Proven\u00e7al",pl:"Polish",pt:"Portuguese",rm:"Raeto-Romance",ro:"Romanian",ru:"Russian",sc:"Sardinian",se:"Northern Sami",sk:"Slovak",sl:"Slovenian",so:"Somali",sq:"Albanian",sr:"Serbian",sv:"Swedish",sw:"Swahili",
-tk:"Turkmen",tr:"Turkish",ty:"Tahitian",uk:"Ukrainian",ur:"Urdu",uz:"Uzbek",vi:"Vietnamese",vo:"Volapuk",yi:"Yiddish",zh:"Chinese"}})(jQuery);
-
-	$.browserLanguage(function( language , acceptHeader ){
-		if(language!="Chinese")
-			window.location = "./en.html"
-	})
-	</script>
 	<script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 	if (navigator.userAgent.toLowerCase().match("mobile") != null)
-		alert("!!請使用電腦使用本網頁!!\n若使用其他裝置造成錯誤，概不負責\n(好啦，我之後會改好)")
+		alert("!!Don't use mobile devices to browse this page!!\nIf use mobile device cause something wrong, I won't take any responsibility")
 	ga('create', 'UA-43236443-3', 'auto');
 	ga('send', 'pageview');
-
 	</script>
+	<script src="//code.jquery.com/jquery.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="./c.js"></script>
+	<script>
+	function draw(d){"u"==d?$("#load").modal("show"):"s"==d&&($("#sha").modal("hide"),$("#load").modal("show"));console.log("\u8f38\u51fa\u4e2d");var a=get("output").getContext("2d");a.textAlign="left";a.fillStyle="black";a.font="";var c=new Image;c.onload=function(){lef=parseInt(get("img").style.left.slice(0,get("img").style.left.length-2));to=parseInt(get("img").style.top.slice(0,get("img").style.top.length-2));a.drawImage(c,-201,-1,887,499);a.drawImage(get("img"),lef,to,get("img").width,get("img").height);
+var e=new Image;e.onload=function(){a.drawImage(e,0,0,455,682);a.drawImage(get("type"),10,8,73,73);a.font="bold 20px Arial";a.fillStyle="white";a.fillText(get("name").value,100,37);var c=new Image;c.onload=function(){for(var b=0;b<get("numStar").value;b++)a.drawImage(c,100+17*b,46,15,18);a.font="italic 32px Arial";a.textAlign="right";a.fillStyle="white";a.fillText(get("space").value,430,80);a.font="13px Arial";a.fillText(get("cd").value,355,580);"\u6700\u5927"==get("cdLv").value&&(a.fillStyle="#08D7CE");
+a.fillText(get("cdLv").value,423,579);get("oup").src=get("output").toDataURL("image/png");console.log("\u8f38\u51fa\u5b8c\u6210");"d"==d?downloadURL():"u"==d?sendToImgur():"s"==d&&shareToFB()};get("sublimation").checked?(a.drawImage(get("s1"),324,470,20,20),a.drawImage(get("s2"),351,470,20,20),a.drawImage(get("s3"),378,470,20,20),a.drawImage(get("s4"),405,470,20,20)):a.drawImage(get("cover"),300,470,132,23);a.font="15px Arial";a.textAlign="left";a.fillStyle="#E7E7E7";a.fillText(get("actName").value,
+90,493);a.fillText(get("leaName").value,90,585);a.font="13px Arial";for(var b=0;b<m(get("actBody").value.toString().split("\n").length,3);b++)a.fillText(get("actBody").value.toString().split("\n")[b],31,519+16*b);for(b=0;b<m(get("leaBody").value.toString().split("\n").length,3);b++)a.fillText(get("leaBody").value.toString().split("\n")[b],33,611+16*b);a.drawImage(get("imgRace"),240,444,20,20);a.font="bold 19px Arial";a.textAlign="right";a.fillStyle="white";a.fillText(get("race").value,426,461);a.font=
+"21px";a.fillText(get("atk").value,426,429);a.fillText(get("health").value,223,429);a.fillText(get("back").value,223,461);a.font="italic 32px arial";a.fillText(get("nowLv").value,97,397);get("nowLv").value==get("maxLv").value?(a.fillStyle="#08D7CE",a.font="bold italic 15px arial",a.fillText("\u6700\u5927",128,397)):(a.font="italic 15px arial",a.fillText("/",103,397),a.font="bold italic 15px arial",a.fillText(get("maxLv").value,123,397));get("oup").src=get("output").toDataURL("image/png");c.src="./resource/star.png"};
+e.src="./resource/en.png"};c.src="./resource/card_background.jpg"};
+	</script>
 	<link type="text/css" rel="stylesheet" href="style.css">
-	<title>神魔卡片製造機</title>
+	<title>Tower of Savior's card maker</title>
 </head>
 <body onload="disableSelection(this)">
 	<input accept="image/*" onchange="readFile(this)" id="file" style="display:none;" type="file"/>
 	<div id="main">
 		<img id="img" src="./resource/n.png" style="z-index:101;position:absolute;left:28px;top:73px;" height="327" width="405"/>
-		<div id="bord">
+		<div id="bord" style="background-image:url(./resource/en.png);">
 			<span id="change" onclick="changeType()">
 				<img id="type" src="./resource/0.png" />
 			</span>
 			<div id="header">
-				<input id="name" maxlength="15" type="text" placeholder="請輸入名稱"/>
+				<input id="name" maxlength="15" type="text" placeholder="Card's name"/>
 				<div id="star">
 					<span class="star"></span>
-					<input onchange="changeStar(this)" id="numStar" min="1" max="12" type="number" placeholder="星"/>
+					<input style="width:60px;left:190px;" onchange="changeStar(this)" id="numStar" min="1" max="12" type="number" placeholder="star"/>
 				</div>
 			</div>
-			<input onchange="if(this.value!='') this.value = Math.round(this.value);if(isNaN(this.value)) this.value=''" maxlength="3" placeholder="空間" id="space" type="text"/>
+			<input onchange="if(this.value!='') this.value = Math.round(this.value);if(isNaN(this.value)) this.value=''" maxlength="3" placeholder="Cost" id="space" type="text"/>
 			<label id="imgLabel" for="file" style="font-size:30px;color:white;text-align:center;line-height:280px">
-				點選以放置圖片
+				Have an Image here.
 				<div onmousedown="moveStart(this,event)" id="movableIMG" style="display:none;top: -13px; left: 5px;"></div>
 				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGleft"></div>
 				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGright"></div>
@@ -76,12 +72,12 @@ tk:"Turkmen",tr:"Turkish",ty:"Tahitian",uk:"Ukrainian",ur:"Urdu",uz:"Uzbek",vi:"
 				<input onchange="raceChange(this)" placeholder="種族" maxlength="10" style="text-align:right;top:2px;position:relative;left:40px;font-weight:bold;font-size:16px;height:25px;width:130px;" type="text" id="race"/>
 			</div>
 			<br/>
-			<input height="15" maxlength="23" placeholder="主動技名稱" id="actName" style="position:relative;left:90px;width:150px;font-size:15px;color:#E7E7E7;" type="text"/>
-			<div style="display:inline;position:relative;top:-3px;left:62px;">
+			<input height="15" maxlength="23" placeholder="Active Skill Name:" id="actName" style="position:relative;left:90px;width:150px;font-size:15px;color:#E7E7E7;" type="text"/>
+			<div style="display:inline;position:relative;top:-3px;left:45px;">
 				<input onchange="changeOpen(this)" type="checkbox" id="sublimation"/>
-				<label style="color:white;z-index: 100;position: relative;" for="sublimation">昇華選項</label>
+				<label style="color:white;z-index: 100;position: relative;" for="sublimation">Amelioration</label>
 			</div>
-			<div style="top:-4px;display:inline;position:relative;left:89px;height:23px;width:132px;" id="optionSublimation">
+			<div style="top:-4px;display:inline;position:relative;left:62px;height:23px;width:132px;" id="optionSublimation">
 				<img id="cover" style="position:relative;left:-25px;z-index: 10;" height="23" width="132" src="./resource/b.png"/>
 			</div>
 			<textarea style="background-color: transparent;
@@ -96,9 +92,9 @@ tk:"Turkmen",tr:"Turkish",ty:"Tahitian",uk:"Ukrainian",ur:"Urdu",uz:"Uzbek",vi:"
 			overflow:hidden;
 			height:50px; 
 			width:390px;
-			color:#E7E7E7;" id="actBody" onchange="this.value = addN(this.value)" maxlength="165" placeholder="主動技內容"></textarea>
+			color:#E7E7E7;" id="actBody" onchange="this.value = addN(this.value)" maxlength="165" placeholder="Please Enter Active Skill:."></textarea>
 			<div id="leaderSkill" style="position:relative;top:13px;">
-				<input height="15" maxlength="23" placeholder="隊長技名稱" id="leaName" style="position:relative;left:90px;width:180px;font-size:15px;color:#E7E7E7;" type="text"/>
+				<input height="15" maxlength="23" placeholder="Leder Skill name" id="leaName" style="position:relative;left:90px;width:180px;font-size:15px;color:#E7E7E7;" type="text"/>
 				<div style="display:inline;position:relative;top:-3px;left:100px;"></div>
 				<div style="display:inline;position:relative;left:160px;top:3px;">
 					<input type="number" maxlength="2" placeholder="1" onchange="if(this.value>99)this.value=99;if(this.value<0)this.value=0;if(this.value!='') this.value = Math.round(this.value);if(isNaN(this.value)) this.value=''" id="cd" style="width: 30px;
@@ -122,22 +118,22 @@ tk:"Turkmen",tr:"Turkish",ty:"Tahitian",uk:"Ukrainian",ur:"Urdu",uz:"Uzbek",vi:"
 				overflow:hidden;
 				height:50px; 
 				width:390px;
-				color:#E7E7E7;" id="leaBody" onchange="this.value = addN(this.value)" maxlength="165" placeholder="隊長技內容"></textarea>
+				color:#E7E7E7;" id="leaBody" onchange="this.value = addN(this.value)" maxlength="165" placeholder="Please Enter Leader Skill."></textarea>
 			</div>
 		</div>
 	</div>
-	<button onclick='draw("a");' style="height:40px;width:111px;cursor:default;">預覽圖片</button>
-	<button onclick="draw('d');" style="height:40px;width:111px;cursor:default;">下載PNG</button>
+	<button onclick='draw("a");' style="height:40px;width:111px;cursor:default;">Image preview</button>
+	<button onclick="draw('d');" style="height:40px;width:111px;cursor:default;">Download it!</button>
 	<a style="display:none;" id="a" href="" download="">aaaaaaa</a>
 	<canvas style="z-index:1;position:absolute;top:0px;left:455px;" height="682" width="455" id="output"></canvas>
 	<img style="z-index:2;position:absolute;top:0px;left:455px;" height="682" width="455" id="oup" src="./resource/n.png"/>
-	<button onclick='draw("u");' style="height:40px;width:111px;cursor:default;">公開至Imgur</button> <button onclick="$('#sha').modal('show')"  style="cursor:default;height:40px;width:111px;">分享至FB</button>
+	<button onclick='draw("u");' style="height:40px;width:111px;cursor:default;">Upload</button> 
+	<button onclick="draw('s')"  style="cursor:default;height:40px;width:111px;">Share To FB</button>
 	<div class="fb-like" data-href="https://www.facebook.com/ToS.Card.Maker" data-layout="standard" data-action="like" data-show-faces="false" data-share="false"></div>
 	<br/>
-	別人的作品：
+	Other people also made：
 	<iframe frameborder="0" width="100%" height="400" src="http://card.boxhost.me/frame.php"></iframe>
 	<div id="fb-root"></div>
-	<!--<button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>-->
 	<div class="modal fade bs-example-modal-lg" id="sha" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   		<div class="modal-dialog modal-lg">
     		<div class="modal-content">
@@ -150,7 +146,7 @@ tk:"Turkmen",tr:"Turkish",ty:"Tahitian",uk:"Ukrainian",ur:"Urdu",uz:"Uzbek",vi:"
 						height: 78px;
 						width: 100%;
 						resize : none;" 
-					id="pd" placeholder="請輸入卡片說明"></textarea>
+					id="pd" placeholder="請輸入卡片說明">This is what I made from ToS Card Maker</textarea>
       			</div>
       			<div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
@@ -164,13 +160,13 @@ tk:"Turkmen",tr:"Turkish",ty:"Tahitian",uk:"Ukrainian",ur:"Urdu",uz:"Uzbek",vi:"
     		<div class="modal-content">
       			<div style="background-color:black;color:white;" class="modal-header">
       				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      				<div class="modal-title">上傳中</div>
+      				<div class="modal-title">Uploading</div>
       			</div>
       			<div class="modal-body">
-      				上傳中........
+      				Uploading........
       			</div>
       			<div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			    </div>
     		</div>
   		</div>
@@ -180,13 +176,13 @@ tk:"Turkmen",tr:"Turkish",ty:"Tahitian",uk:"Ukrainian",ur:"Urdu",uz:"Uzbek",vi:"
     		<div class="modal-content">
       			<div style="background-color:black;color:white;" class="modal-header">
       				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      				<div class="modal-title">分享完成</div>
+      				<div class="modal-title">Share succeed</div>
       			</div>
       			<div class="modal-body">
-      				您的貼文網址:<a id="url" href></a>
+      				Youe Post:<a id="url" href></a>
       			</div>
       			<div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			    </div>
     		</div>
   		</div>
@@ -196,13 +192,13 @@ tk:"Turkmen",tr:"Turkish",ty:"Tahitian",uk:"Ukrainian",ur:"Urdu",uz:"Uzbek",vi:"
     		<div class="modal-content">
       			<div style="background-color:black;color:white;" class="modal-header">
       				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      				<div class="modal-title">上傳完成</div>
+      				<div class="modal-title">Upload succeed</div>
       			</div>
       			<div class="modal-body">
-      				您的圖片網址:<a id="link" href></a>
+      				Image link:<a id="link" href></a>
       			</div>
       			<div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			    </div>
     		</div>
   		</div>

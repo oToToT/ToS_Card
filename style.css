@@ -1,0 +1,138 @@
+iframe{
+	overflow:hidden;
+}
+iframe::-webkit-scrollbar {  
+	display: none;
+}
+iframe::-moz-scrollbar {  
+	display: none;
+}
+*{
+	font-family: arial,"Times New Roman",times;
+}
+input{
+	background-color: transparent;
+	border: none;
+	outline: none;
+	color:white;
+}
+#bord{
+	position: relative;
+	background-image: url(./resource/c.png);
+	height: 682px;
+	width: 455px;
+	background-size: 455px 682px;
+	z-index: 130;
+}
+#main{
+	background-image: url(./resource/card_background.jpg);
+	width: 455px;
+	height: 682px;
+	background-size: 195% auto;
+	background-position:47% 4%;
+	background-repeat: no-repeat;
+}
+#name{
+	font-size: 20px;
+	font-weight: bold;
+	height: 26px;
+	width: 169px;
+	position: relative;
+	left:5%;
+}
+.star{
+	display: inline-block;
+	height: 18px;
+	width: 17px;
+	background-image: url(./resource/star.png);
+	background-size: 15px 18px;
+	font-size: 12px
+	background-repeat: no-repeat;
+}
+#star{
+	position: relative;
+	top: 5%;
+	left: 6%;
+	height: 26px;
+}
+#change{
+	display: inline;
+	position: relative;
+	left:2%;
+	top: 10px;
+	cursor:pointer;
+}
+#header{
+	display: inline;
+	position: absolute;
+	left:90px;
+	top: 15px;
+}
+#numStar{
+	position:absolute;
+	left:200px;
+	display: inline;
+	width: 40px;
+	height: 20px;
+	font-size: 20px;
+}
+#space{
+	background-color: transparent;
+	border: none;
+	outline: none;
+	width: 80px;
+	height: 35px;
+	color:white;
+	font-size: 32px;
+	text-align: right;
+	font-style: italic;
+	position: absolute;
+	top: 50px;
+	left: 350px;
+}
+#imgLabel{
+	position:relative;
+	left:23px;
+	top:12px;
+	display: block;
+	width: 409px;
+	height: 280px;
+	cursor:pointer;
+	z-index: 101;
+}
+#nowLv,#maxLv{
+	width: 35px;
+	height: 35px;
+	font-size: 32px;
+	text-align: right;
+	font-style: italic;
+	display:inline;
+}
+#health,#back,#atk{
+	text-align:right
+}
+.control_box{
+	height:20px;
+	width: 20px;
+	background: #aaa;
+	position:absolute;
+}
+.control_box:hover{
+	background: #666;
+}
+#IMGtop,#IMGbuttom{
+	cursor:n-resize;
+}
+#IMGleft,#IMGright{
+	cursor:e-resize
+}
+#IMGrb,#IMGlt{
+	cursor: nw-resize;
+}
+#IMGlb,#IMGrt{
+	cursor: sw-resize;
+}
+#movableIMG{
+	cursor:all-scroll;
+	position:absolute;
+}

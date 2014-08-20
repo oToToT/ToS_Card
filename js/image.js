@@ -1,7 +1,7 @@
 	function readFile(t) {
 		get("imgLabel").setAttribute("for","")
-		get("imgLabel").innerHTML = '<div onmousedown="moveStart(this,event)" id="movableIMG" style="display:none;top: -13px; left: 5px;"></div><div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGleft"></div><div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGright"></div><div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGtop"></div><div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGbuttom"></div><div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGlt"></div><div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGrt"></div><div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGlb"></div><div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGrb"></div><label id="imgChoose" style="display: block; cursor: pointer; position: absolute; left: 350px; top: -111px;" for="file"><img height="50" src="./resource/caMERA1.png" onmouseout=\'this.src="./resource/caMERA1.png"\' onmouseover="this.src=\'./resource/caMERA2.png\'" width="50"></img></label>'
 		get("imgLabel").style.cursor = "default"
+		get("pla").innerHTML = ""
 		get("imgChoose").style.display = "block"
 		get("movableIMG").style.display = "block"
 		get("IMGleft").style.display = "block"

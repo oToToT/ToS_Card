@@ -47,8 +47,7 @@ tk:"Turkmen",tr:"Turkish",ty:"Tahitian",uk:"Ukrainian",ur:"Urdu",uz:"Uzbek",vi:"
 				</div>
 			</div>
 			<input onchange="if(this.value!='') this.value = Math.round(this.value);if(isNaN(this.value)) this.value=''" maxlength="3" placeholder="空間" id="space" type="text"/>
-			<label id="imgLabel" for="file" style="font-size:30px;color:white;text-align:center;line-height:280px">
-				點選以放置圖片
+			<label id="imgLabel" for="file">
 				<div onmousedown="moveStart(this,event)" id="movableIMG" style="display:none;top: -13px; left: 5px;"></div>
 				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGleft"></div>
 				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGright"></div>
@@ -58,9 +57,12 @@ tk:"Turkmen",tr:"Turkish",ty:"Tahitian",uk:"Ukrainian",ur:"Urdu",uz:"Uzbek",vi:"
 				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGrt"></div>
 				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGlb"></div>
 				<div class="control_box" onmousedown="changeSizeStart(this,event)" style="display:none;" id="IMGrb"></div>
-				<label id="imgChoose" style="display: none; cursor: pointer; position: absolute; left: 350px; top: -120px;" for="file">
+				<label id="imgChoose" style="display: none; cursor: pointer; position: absolute; left: 350px;" for="file">
 					<img height="50" src="./resource/caMERA1.png" onmouseout='this.src="./caMERA1.png"' onmouseover="this.src='./resource/caMERA2.png'" width="50"></img>
 				</label>
+				<div id="pla" style="font-size:30px;color:white;text-align:center;line-height:280px">
+					點選以放置圖片
+				</div>
 			</label>
 			<div class="level" style="position:relative;top: 10px;left:60px;">
 				<input placeholder="1" maxlength="2" type="text" id="nowLv"/>

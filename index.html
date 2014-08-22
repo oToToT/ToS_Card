@@ -5,17 +5,6 @@
 	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<script src="//code.jquery.com/jquery.min.js"></script>
 	<script>
-	(function(a){a.browserLanguage=function(c){var b;a.ajax({url:"http://ajaxhttpheaders.appspot.com",dataType:"jsonp",success:function(a){b=a["Accept-Language"].substring(0,2);c(d[b],a["Accept-Language"])}})};var d={ab:"Abkhazian",af:"Afrikaans",an:"Aragonese",ar:"Arabic",as:"Assamese",az:"Azerbaijani",be:"Belarusian",bg:"Bulgarian",bn:"Bengali",bo:"Tibetan",br:"Breton",bs:"Bosnian",ca:"Catalan / Valencian",ce:"Chechen",co:"Corsican",cs:"Czech",cu:"Church Slavic",cy:"Welsh",da:"Danish",de:"German",el:"Greek",
-en:"English",eo:"Esperanto",es:"Spanish / Castilian",et:"Estonian",eu:"Basque",fa:"Persian",fi:"Finnish",fj:"Fijian",fo:"Faroese",fr:"French",fy:"Western Frisian",ga:"Irish",gd:"Gaelic / Scottish Gaelic",gl:"Galician",gv:"Manx",he:"Hebrew",hi:"Hindi",hr:"Croatian",ht:"Haitian; Haitian Creole",hu:"Hungarian",hy:"Armenian",id:"Indonesian",is:"Icelandic",it:"Italian",ja:"Japanese",jv:"Javanese",ka:"Georgian",kg:"Kongo",ko:"Korean",ku:"Kurdish",kw:"Cornish",ky:"Kirghiz",la:"Latin",lb:"Luxembourgish Letzeburgesch",
-li:"Limburgan Limburger Limburgish",ln:"Lingala",lt:"Lithuanian",lv:"Latvian",mg:"Malagasy",mk:"Macedonian",mn:"Mongolian",mo:"Moldavian",ms:"Malay",mt:"Maltese",my:"Burmese",nb:"Norwegian (Bokm\u00e5l)",ne:"Nepali",nl:"Dutch",nn:"Norwegian (Nynorsk)",no:"Norwegian",oc:"Occitan (post 1500); Proven\u00e7al",pl:"Polish",pt:"Portuguese",rm:"Raeto-Romance",ro:"Romanian",ru:"Russian",sc:"Sardinian",se:"Northern Sami",sk:"Slovak",sl:"Slovenian",so:"Somali",sq:"Albanian",sr:"Serbian",sv:"Swedish",sw:"Swahili",
-tk:"Turkmen",tr:"Turkish",ty:"Tahitian",uk:"Ukrainian",ur:"Urdu",uz:"Uzbek",vi:"Vietnamese",vo:"Volapuk",yi:"Yiddish",zh:"Chinese"}})(jQuery);
-
-	$.browserLanguage(function( language , acceptHeader ){
-		if(language!="Chinese")
-			window.location = "./en.html"
-	})
-	</script>
-	<script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

@@ -69,12 +69,13 @@
 	    get("IMGbuttom").style.top = (t+he-10).toString()+"px"
 	}
 	function moveStart (th,e) {
+		disableSelection(document.body)
 		get("imgChoose").style.display = "none"
 		tempX = e.pageX
 		tempY = e.pageY
-		th.setAttribute("onmousemove" , "move(this,event)")
-		th.setAttribute("onmouseup" , "moveEnd(this,event)")
-		th.setAttribute("onmouseout" , "moveEnd(this,event)")
+		document.body.setAttribute("onmousemove" , "move(this,event)")
+		document.body.setAttribute("onmouseup" , "moveEnd(this,event)")
+		document.body.setAttribute("onmouseleave" , "moveEnd(this,event)")
 	}
 	function move (th,e) {
 	    t = parseInt(get("movableIMG").style.top.slice(0,((get("movableIMG").style.top.length)-2)))
@@ -86,9 +87,9 @@
 		nowX = e.pageX
 		nowY = e.pageY
 		if(imgH+(imgT+(nowY - tempY))<399&&(imgL+(nowX - tempX))+imgW<434&&(imgT+(nowY - tempY))>72&&(imgL+(nowX - tempX))>27){
-			th.style.left = (le+(nowX - tempX)).toString() + "px"
+			get("movableIMG").style.left = (le+(nowX - tempX)).toString() + "px"
 			get("img").style.left = (imgL+(nowX - tempX)).toString() + "px"
-			th.style.top = (t+(nowY - tempY)).toString() + "px"
+			get("movableIMG").style.top = (t+(nowY - tempY)).toString() + "px"
 			get("img").style.top = (imgT+(nowY - tempY)).toString() + "px"
 		}
 		relo()
@@ -98,16 +99,17 @@
 	function moveEnd (th,e){
 		th.setAttribute("onmousemove" , "")
 		th.setAttribute("onmouseup" , "")
-		th.setAttribute("onmouseout" , "")
+		th.setAttribute("onmouseleave" , "")
 		get("imgChoose").style.display = "block"
 	}
 	function changeSizeStart(th,e){
+		disableSelection(document.body)
 		get("imgChoose").style.display = "none"
 		tempX = e.pageX
 		tempY = e.pageY
-		th.setAttribute("onmousemove" , th.id.toLowerCase()+"(this,event)")
-		th.setAttribute("onmouseup" , "moveEnd(this,event)")
-		th.setAttribute("onmouseout" , "moveEnd(this,event)")
+		document.body.setAttribute("onmousemove" , th.id.toLowerCase()+"(this,event)")
+		document.body.setAttribute("onmouseup" , "moveEnd(this,event)")
+		document.body.setAttribute("onmouseleave" , "moveEnd(this,event)")
 	}
 	function imgtop (th,e) {
 		nowY = e.pageY

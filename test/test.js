@@ -26,6 +26,7 @@
 		        //已登入且和app連結
 		        var uid = response.authResponse.accessToken;
 		        accessToken = response.authResponse.accessToken;
+		        uid = response.authResponse.userID;
 		        init();
 		    } else if (response.status === 'not_authorized') {
 		        //已登入但未與app連結
@@ -62,7 +63,8 @@
 			        $("#sdone").modal("show")
 			    } else {
 			    	$("#load").modal("hide")
-			        get("url").innerHTML = "https://www.facebook.com/me/posts/"+response.id.toString()
+			    	console.log(response)
+			        get("url").innerHTML = "https://www.facebook.com/"+uid.toString()+"/posts/"+response.id.toString().split("_")[1]
 			        get("url").href = get("url").innerHTML
 			        $("#sdone").modal("show")
 			    }

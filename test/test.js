@@ -47,22 +47,19 @@
 	function init () {
 		var link = ""
 		var imgURL = ""
-		function() {
-	    	FB.api('/me/feed', 'post', {
-	    		access_token: accessToken,
-		    	message: get("pd").value,
-				}, function(response){
-				    if (!response || response.error) {
-				    	$("#load").modal("hide")
-				        get("url").innerHTML = "分享錯誤"
-				        $("#sdone").modal("show")
-				    } else {
-				    	$("#load").modal("hide")
-				        get("url").innerHTML = "https://www.facebook.com/photo.php?fbid="+response.id.toString()
-				        get("url").href = get("url").innerHTML
-				        $("#sdone").modal("show")
-				    }
-
-				});
-			}()
+	    FB.api('/me/feed', 'post', {
+	    	access_token: accessToken,
+		   	message: get("pd").value,
+			}, function(response){
+		    if (!response || response.error) {
+			    	$("#load").modal("hide")
+			        get("url").innerHTML = "分享錯誤"
+			        $("#sdone").modal("show")
+			    } else {
+			    	$("#load").modal("hide")
+			        get("url").innerHTML = "https://www.facebook.com/photo.php?fbid="+response.id.toString()
+			        get("url").href = get("url").innerHTML
+			        $("#sdone").modal("show")
+			    }
+			});
 	}

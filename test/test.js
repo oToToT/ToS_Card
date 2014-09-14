@@ -60,7 +60,7 @@
 			        $("#sdone").modal("show")
 			    } else {
 			    	$("#load").modal("hide")
-			        get("url").innerHTML = "https://www.facebook.com/photo.php?fbid="+response.id.toString()
+			        get("url").innerHTML = "https://www.facebook.com/me/posts/"+response.id.toString()
 			        get("url").href = get("url").innerHTML
 			        $("#sdone").modal("show")
 			    }

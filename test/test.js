@@ -47,7 +47,7 @@
 	function init () {
 		var link = ""
 		var imgURL = ""
-		function(req) {
+		function() {
 	    	FB.api('/me/feed', 'post', {
 	    		access_token: accessToken,
 		    	message: get("pd").value,
@@ -64,5 +64,5 @@
 				    }
 
 				});
-			}
+			}()
 	}

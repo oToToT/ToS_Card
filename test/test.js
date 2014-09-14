@@ -48,6 +48,8 @@
 	    }, { scope: 'public_profile,publish_actions' });
 	}
 	function init () {
+		$("#sha").modal("hide")
+		$("#load").modal("show")
 		var link = ""
 		var imgURL = ""
 	    FB.api('/me/feed', 'post', {

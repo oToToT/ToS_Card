@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<script src="//code.jquery.com/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="./test.js"></script>
+	<title>FB Post by FB.api</title>
+</head>
+<body>
+	<button onclick="$('#sha').modal('show')">分享</button>
+	<div class="modal fade bs-example-modal-lg" id="sha" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div style="background-color:black;color:white;" class="modal-header">
+      				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      				<div class="modal-title">請輸入文章內容</div>
+      			</div>
+      			<div class="modal-body">
+      				<textarea style="margin: 0px;
+						height: 78px;
+						width: 100%;
+						resize : none;" 
+					id="pd" placeholder="請輸入文章內容"></textarea>
+      			</div>
+      			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+			        <button onclick="shareToFB()" type="button" class="btn btn-primary">分享</button>
+			    </div>
+    		</div>
+  		</div>
+	</div>
+	<div class="modal fade bs-example-modal-lg" id="load" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div style="background-color:black;color:white;" class="modal-header">
+      				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      				<div class="modal-title">上傳中</div>
+      			</div>
+      			<div class="modal-body">
+      				上傳中........
+      			</div>
+      			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+			    </div>
+    		</div>
+  		</div>
+	</div>
+	<div class="modal fade bs-example-modal-lg" id="sdone" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			<div style="background-color:black;color:white;" class="modal-header">
+      				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      				<div class="modal-title">分享完成</div>
+      			</div>
+      			<div class="modal-body">
+      				您的貼文網址:<a id="url" href></a>
+      			</div>
+      			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+			    </div>
+    		</div>
+  		</div>
+	</div>
+</body>
+</html>

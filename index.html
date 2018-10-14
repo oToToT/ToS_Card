@@ -3,7 +3,6 @@
 <head>
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-	<script src="//code.jquery.com/jquery.min.js"></script>
 	<script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -13,10 +12,13 @@
 		alert("!!請使用電腦使用本網頁!!\n若使用其他裝置造成錯誤，概不負責\n(好啦，我之後會改好)")
 	ga('create', 'UA-43236443-3', 'auto');
 	ga('send', 'pageview');
-
 	</script>
+	<!--<script src="https://raw.githubusercontent.com/dansingerman/jQuery-Browser-Language/master/jquery.browserLanguage.js"></script>-->
+	<script src="//code.jquery.com/jquery.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script src="./c.js"></script>
+	<script src="./js/js.js"></script>
+	<script src="./js/FB.js"></script>
+	<script src="./js/image.js"></script>
 	<link type="text/css" rel="stylesheet" href="style.css">
 	<title>神魔卡片製造機</title>
 </head>
@@ -58,7 +60,7 @@
 				<span style="font-size:15px;color:white;">/</span>
 				<input placeholder="99" style="width:16px;height: 16px;font-size: 15px;" maxlength="2" type="text" id="maxLv"/>
 			</div>
-			<div style="position:relative;left:125px;top:15px;">
+			<div style="position:relative;left:125px;top:20px;">
 				<input maxlength="9" placeholder="0" style="font-weight:bold;font-size:19px;height:25px;width:100px;" type="text" id="health"/>
 				<input maxlength="9" placeholder="0" style="font-weight:bold;font-size:19px;position:relative;left:90px;height:25px;width:100px;" type="text" id="atk"/>
 				<br/>
@@ -67,12 +69,12 @@
 				<input onchange="raceChange(this)" placeholder="種族" maxlength="10" style="text-align:right;top:2px;position:relative;left:40px;font-weight:bold;font-size:16px;height:25px;width:130px;" type="text" id="race"/>
 			</div>
 			<br/>
-			<input height="15" maxlength="23" placeholder="主動技名稱" id="actName" style="position:relative;left:90px;width:150px;font-size:15px;color:#E7E7E7;" type="text"/>
-			<div style="display:inline;position:relative;top:-3px;left:62px;">
+			<input height="15" maxlength="23" placeholder="主動技名稱" id="actName" style="position:relative;top:13px;left:90px;width:150px;font-size:15px;color:#E7E7E7;" type="text"/>
+			<div style="display:inline;position:relative;top:8px;left:62px;">
 				<input onchange="changeOpen(this)" type="checkbox" id="sublimation"/>
 				<label style="color:white;z-index: 100;position: relative;" for="sublimation">昇華選項</label>
 			</div>
-			<div style="top:-4px;display:inline;position:relative;left:89px;height:23px;width:132px;" id="optionSublimation">
+			<div style="top:4px;display:inline;position:relative;left:94px;height:23px;width:132px;" id="optionSublimation">
 				<img id="cover" style="position:relative;left:-25px;z-index: 10;" height="23" width="132" src="./resource/b.png"/>
 			</div>
 			<textarea style="background-color: transparent;
@@ -88,7 +90,7 @@
 			height:50px; 
 			width:390px;
 			color:#E7E7E7;" id="actBody" onchange="this.value = addN(this.value)" maxlength="165" placeholder="主動技內容"></textarea>
-			<div id="leaderSkill" style="position:relative;top:13px;">
+			<div id="leaderSkill" style="position:relative;top:20px;">
 				<input height="15" maxlength="23" placeholder="隊長技名稱" id="leaName" style="position:relative;left:90px;width:180px;font-size:15px;color:#E7E7E7;" type="text"/>
 				<div style="display:inline;position:relative;top:-3px;left:100px;"></div>
 				<div style="display:inline;position:relative;left:160px;top:3px;">
@@ -119,7 +121,7 @@
 	</div>
 	<button onclick='draw("a");' style="height:40px;width:111px;cursor:default;">預覽圖片</button>
 	<button onclick="draw('d');" style="height:40px;width:111px;cursor:default;">下載PNG</button>
-	<a style="display:none;" id="a" href="" download="">aaaaaaa</a>
+	<a style="display:none;" id="a" href="" download="">_</a>
 	<canvas style="z-index:1;position:absolute;top:0px;left:455px;" height="682" width="455" id="output"></canvas>
 	<img style="z-index:2;position:absolute;top:0px;left:455px;" height="682" width="455" id="oup" src="./resource/n.png"/>
 	<button onclick='draw("u");' style="height:40px;width:111px;cursor:default;">公開至Imgur</button> <button onclick="$('#sha').modal('show')"  style="cursor:default;height:40px;width:111px;">分享至FB</button>
